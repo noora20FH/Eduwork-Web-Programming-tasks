@@ -1,0 +1,177 @@
+/* Styling for the main container */
+body {
+  font-family: "Winky Rough", sans-serif; /* Menerapkan font ke seluruh body */
+  margin: 0; /* Menghilangkan margin default browser */
+  padding: 0; /* Menghilangkan padding default browser */
+}
+
+/* Aturan font Winky Rough yang Anda berikan */
+.winky-rough-regular {
+  /* Mengganti <uniquifier> dengan 'regular' sebagai contoh */
+  font-family: "Winky Rough", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Menggunakan bobot 400 sebagai contoh */
+  font-style: normal;
+}
+
+/* Main content wrapper */
+.main-content-wrapper {
+  width: 100%; /* Memastikan lebar penuh */
+  /* max-width: 1200px; */ /* Dihapus agar dapat memenuhi layar */
+  /* margin: 0 auto; */ /* Dihapus agar dapat memenuhi layar */
+  /* border: 1px solid #ccc; */ /* Dihapus agar tidak ada border di wrapper utama */
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+/* Navbar container - now a separate element */
+.navbar-container {
+  display: grid; /* Menggunakan Grid */
+  grid-template-columns: auto 1fr; /* Kolom pertama auto (untuk Brand), kolom kedua mengambil sisa ruang */
+  align-items: center;
+  /* border-bottom: 1px solid #ccc; */ /* Dihapus agar background lebih penuh */
+  /* padding-bottom: 10px; */ /* Dihapus karena padding sudah diatur di bawah */
+  background-color: #0a0a2a; /* Biru sangat gelap */
+  color: #ffffff; /* Teks putih */
+  padding: 10px 20px; /* Padding untuk seluruh container navbar */
+  width: 100%; /* Memastikan navbar membentang selebar viewport */
+  box-sizing: border-box; /* Memastikan padding tidak menambah lebar total */
+  margin-bottom: 20px; /* Memberi jarak antara navbar dan konten utama */
+}
+
+#navbar {
+  /* Memberikan padding pada navbar */
+  text-align: right;
+  padding: 10px; /* Padding 10px untuk tautan navbar, sudah ada dan dikonfirmasi */
+}
+
+/* Memastikan tautan di navbar juga berwarna putih */
+#navbar a {
+  color: #ffffff;
+  text-decoration: none; /* Menghilangkan garis bawah pada tautan */
+}
+
+/* Section 2: Hero Section */
+#home {
+  display: grid; /* Menggunakan Grid */
+  grid-template-columns: 1fr 1fr; /* Dua kolom dengan lebar yang sama (default untuk layar besar) */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Responsiveness for Hero Section (Mobile) */
+@media (max-width: 767px) {
+  #home {
+    grid-template-columns: 1fr; /* Satu kolom untuk perangkat seluler */
+  }
+}
+
+#home > div:nth-child(2) {
+  /* Kolom kanan Bagian Hero (kontainer gambar) */
+  display: flex; /* Tetap menggunakan flex untuk memusatkan gambar */
+  justify-content: center;
+  align-items: center;
+}
+
+#home img {
+  width: auto;
+  height: 400px;
+  /* Style untuk membuat gambar terlihat timbul, sudah ada dan dikonfirmasi */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Efek bayangan untuk timbul */
+  border-radius: 8px; /* Sedikit sudut membulat */
+}
+
+/* Section 3: Biodata (About Me) */
+#biodata {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Container untuk baris biodata */
+#biodata > div {
+  display: grid; /* Menggunakan Grid */
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* Tiga kolom untuk desktop (default) */
+  gap: 20px;
+  justify-content: center; /* Untuk memusatkan item jika tidak mengisi semua ruang */
+}
+
+/* Responsiveness for Biodata Section (Mobile) */
+@media (max-width: 599px) {
+  #biodata > div {
+    grid-template-columns: 1fr; /* Satu kolom untuk perangkat seluler */
+  }
+}
+
+/* Responsiveness for Biodata Section (Tablet) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  #biodata > div {
+    grid-template-columns: repeat(2, 1fr); /* Dua kolom untuk tablet */
+  }
+}
+
+#biodata > div:nth-child(3) {
+  /* Margin khusus untuk baris pertama kotak */
+  margin-bottom: 20px;
+}
+
+#biodata > div > div {
+  /* Kotak biodata individual */
+  /* Mengubah semua latar belakang div di bagian About Me menjadi biru muda */
+  background: #e6f7ff; /* Light Blue */
+  padding: 20px;
+  border-radius: 8px; /* Sedikit sudut membulat */
+}
+
+/* Section 4: Portfolio */
+#portfolio {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Container untuk item portofolio */
+#portfolio > div {
+  display: grid; /* Menggunakan Grid */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Pengaturan responsif default */
+  gap: 20px;
+  justify-content: center;
+
+  box-sizing: border-box;
+  border-radius: 8px; /* Sudut membulat untuk kontainer portofolio */
+}
+
+#portfolio > div > div {
+  /* Item portofolio individual */
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #f8f8f8; /* Warna latar belakang default untuk setiap portofolio */
+  border-radius: 8px; /* Sudut membulat untuk setiap item portofolio */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut untuk efek timbul */
+}
+
+#portfolio > div > div:nth-child(1) {
+  /* Proyek 1 */
+  background: #012041; /* Biru sangat gelap */
+  color: #ffffff; /* Teks putih untuk kontras */
+}
+#portfolio > div > div:nth-child(2) {
+  /* Proyek 2 */
+  background: #006594; /* Biru sedikit lebih muda */
+  color: #ffffff; /* Teks putih untuk kontras */
+}
+#portfolio > div > div:nth-child(3) {
+  /* Proyek 3 */
+  background: #098ac6; /* Biru lebih muda lagi */
+  color: #ffffff; /* Teks putih untuk kontras */
+}
+
+#portfolio img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px; /* Sedikit sudut membulat pada gambar portofolio */
+}
