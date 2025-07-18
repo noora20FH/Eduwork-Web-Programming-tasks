@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Profile Web Bootstrap 5</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css" />
+    <style>
+      .contact-info p {
+        margin-bottom: 0.75rem;
+      }
+
+      .contact-info i {
+        width: 20px; /* Lebar tetap untuk ikon */
+        text-align: center;
+        margin-right: 0.5rem;
+        color: #0d6efd; /* Warna ikon Bootstrap primary */
+      }
+    </style>
+    <!-- <link href="custom.css" rel="stylesheet" /> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Navbar container - now a separate top-level div -->
+      <div
+        class="d-flex align-items-center justify-content-between bg-dark text-white p-3 mb-4"
+      >
+        <div><b>Noora | Web Dev</b></div>
+        <div>
+          <a href="#home" class="text-white text-decoration-none me-2"
+            >Header</a
+          >
+          <a href="#biodata" class="text-white text-decoration-none me-2"
+            >Biodata</a
+          >
+          <a href="#portfolio" class="text-white text-decoration-none me-2"
+            >Portofolio</a
+          >
+                    <a href="#contact" class="text-white text-decoration-none"
+            >Kontak</a
+          >
+        </div>
+      </div>
+
+      <!-- Main content wrapper - contains all sections except the navbar -->
+      <div class="main-content-wrapper">
+        <!-- Section 2: Hero Section -->
+        <div id="home" class="row align-items-center mt-4">
+          <div class="col-md-6 mb-3">
+            <h1>Selamat Datang di Website Saya</h1>
+            <p>
+              Halo! Saya Noora Aulia Hidayat, seorang pengembang web yang
+              antusias. Siap untuk mengeksplorasi lebih banyak melalui
+              pengalaman nyata. Saya bersemangat dalam dunia pengembangan web,
+              mengasah keterampilan melalui program kursus intensif dan magang
+              online. Saya mencari kesempatan untuk berkontribusi dan belajar
+              lebih banyak.
+            </p>
+                        <!-- Tombol Hubungi Saya yang memicu modal -->
+            <p>
+              <button type="button" class="btn btn-primary rounded-3" data-bs-toggle="modal" data-bs-target="#contactModal">
+                Hubungi Saya
+              </button>
+            </p>
+          </div>
+          <div class="col-md-6 d-flex justify-content-center">
+            <img
+              src="src/foto-noora.jpg"
+              alt="Placeholder Image"
+              style="width: 600px; height: 400px"
+              class="rounded shadow"
+            />
+          </div>
+        </div>
+
+        <!-- Section 3: Biodata (About Me) -->
+        <div id="biodata" class="mt-5 text-center">
+          <h2>About Me</h2>
+          <p>
+            Seorang pembelajar seumur hidup yang bersemangat dalam dunia
+            pengembangan web dan teknologi AI.
+          </p>
+          <div class="row justify-content-center g-4">
+ <div class="col-md-4 p-3 rounded d-flex align-items-center">
+            <!-- Div terpisah untuk ikon -->
+            <div class="me-3">
+              <i class="bi bi-person-square display-5"></i>
+            </div>
+            <!-- Konten teks -->
+            <div>
+              <h3>Personal Information</h3>
+              <p></b>Noora Aulia Hidayat</p>
+            </div>
+          </div>
+            <div class="col-md-4 p-3 rounded d-flex align-items-center">
+                           <div class="me-3">
+                <i class="bi bi-mortarboard-fill display-5"></i>
+              </div>
+              <div>
+                <h3>Education</h3>
+                <p><b>Major: </b> Informatics Engineering</p>
+                <p><b>Degree: </b> Bachelor of Applied Computer</p>
+                <p><b>University: </b> State Polytchnic of Malang</p>
+              </div>
+            </div>
+            <div class="col-md-4 p-3 rounded d-flex align-items-center">
+              <div class="me-3">
+                <i class="bi bi-briefcase-fill display-5"></i>
+              </div>
+              <div>
+                <h3>Experience</h3>
+                <p>Frontend Intern - Eduhub by Bima Digital (jan-apr 2025)</p>
+              </div>
+            </div>
+            <div class="col-md-4 p-3 rounded d-flex align-items-center">
+              <div class="me-3">
+                <i class="bi bi-tools display-5"></i>
+              </div>
+              <div>
+                <h3>Skills</h3>
+                <p>
+                  HTML, CSS, Tailwind CSS, JavaScript, TypeScript, Laravel,
+                  Next.js, GitHub, PHP, SQL, and basic backend CRUD operations
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4 p-3 rounded d-flex align-items-center">
+              <div class="me-3">
+                <i class="bi bi-controller display-5"></i>
+              </div>
+              <div>
+                <h3>Hobbies</h3>
+                <p>Video Editing, Membaca Buku, Menyanyi</p>
+              </div>
+            </div>
+            <div class="col-md-4 p-3 rounded d-flex align-items-center">
+              <div class="me-3">
+                <i class="bi bi-geo-alt-fill display-5"></i>
+              </div>
+              <div>
+                <h3>Alamat</h3>
+                <p>
+                  Jl. Gilimanuk no.64, Lowokwaru, Malang, East Java, Indonesia
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div></div>
+        </div>
+
+        <!-- Section 4: Portfolio -->
+        <div id="portfolio" class="container py-5">
+          <h2 class="text-center mb-5">Portofolio</h2>
+          <div class="row g-4 justify-content-center">
+            <!-- Proyek 1: Job Tracker -->
+            <div class="col-md-4">
+              <div class="card bg-dark text-white shadow rounded-3 h-100">
+                <img
+                  src="https://placehold.co/350x200/cccccc/333333?text=Job+Tracker"
+                  class="card-img-top rounded-top"
+                  alt="Proyek 1"
+                  onerror="this.onerror=null;this.src='https://placehold.co/350x200/cccccc/333333?text=Job+Tracker';"
+                />
+                <div class="card-body p-3">
+                  <h3 class="card-title">Job Tracker</h3>
+                  <p class="card-text">
+                    Designed the "Job Tracker" application's UI/UX using Figma
+                    and ShadCN UI kit, ensuring an intuitive and consistent user
+                    experience. Developed and implemented core front-end
+                    functionalities using HTML, CSS (Tailwind CSS), TypeScript,
+                    and Next.js, integrating ShadCN components
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Proyek 2: NAF Store -->
+            <div class="col-md-4">
+              <div
+                class="card bg-secondary bg-opacity-75 text-white shadow rounded-3 h-100"
+              >
+                <img
+                  src="https://placehold.co/350x200/cccccc/333333?text=NAF+Store"
+                  class="card-img-top rounded-top"
+                  alt="Proyek 2"
+                  onerror="this.onerror=null;this.src='https://placehold.co/350x200/cccccc/333333?text=NAF+Store';"
+                />
+                <div class="card-body p-3">
+                  <h3 class="card-title">NAF Store</h3>
+                  <p class="card-text">
+                    "NAF Store" is a e-commerce using Bootstrap and Laravel as a
+                    group project. Contributed to the development of the owner
+                    dashboard and CRUD functions. Utilized HTML, CSS,
+                    JavaScript, PHP, and MySQL.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Proyek 3: Aira Cosmetics -->
+            <div class="col-md-4">
+              <div
+                class="card text-white shadow rounded-3 h-100"
+                style="background-color: #098ac6"
+              >
+                <img
+                  src="https://placehold.co/350x200/cccccc/333333?text=Aira+Cosmetics"
+                  class="card-img-top rounded-top"
+                  alt="Proyek 3"
+                  onerror="this.onerror=null;this.src='https://placehold.co/350x200/cccccc/333333?text=Aira+Cosmetics';"
+                />
+                <div class="card-body p-3">
+                  <h3 class="card-title">Aira Cosmetics</h3>
+                  <p class="card-text">
+                    "Aira Cosmetics," an e-commerce platform, as a group
+                    project. Contributed to frontend development and CRUD
+                    functions. Utilized HTML, CSS, JavaScript, PHP, MySQL,
+                    Bootstrap, and Laravel.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bagian Kontak Baru (menggunakan Card Bootstrap) -->
+        <div id="contact" class="container py-5">
+          <h2 class="text-center mb-5">Kontak</h2>
+          <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+              <div class="card shadow-sm rounded-4">
+                <div class="card-body p-4">
+                  <div class="row g-4">
+                    <!-- Kolom Info Kontak -->
+                    <div class="col-md-6">
+                      <h3 class="mb-3">Info Kontak</h3>
+                      <div class="contact-info">
+                        <p>
+                          <i class="bi bi-envelope-fill"></i> Email:
+                          nooraaulia20h@gmail.com
+                        </p>
+                        <p>
+                          <i class="bi bi-telephone-fill"></i> Telepon:
+                          +6289513822017
+                        </p>
+                        <p>
+                          <i class="bi bi-geo-alt-fill"></i> Alamat: Jl.
+                          Gilimanuk no.64, Lowokwaru, Malang, East Java,
+                          Indonesia
+                        </p>
+                        <p>
+                          <i class="bi bi-linkedin"></i> LinkedIn:
+                          <a
+                            href="https://www.linkedin.com/in/nooraaulia/"
+                            target="_blank"
+                            >www.linkedin.com/in/nooraaulia/</a
+                          >
+                        </p>
+                        <p>
+                          <i class="bi bi-github"></i> GitHub:
+                          <a href="https://github.com/noora20FH" target="_blank"
+                            >github.com/noora20FH</a
+                          >
+                        </p>
+                      </div>
+                    </div>
+                    <!-- Kolom Form Kontak -->
+                    <div class="col-md-6">
+                      <h3 class="mb-3">Form Kontak</h3>
+                      <form>
+                        <div class="mb-3">
+                          <label for="nama" class="form-label">Nama</label>
+                          <input
+                            type="text"
+                            class="form-control rounded-3"
+                            id="nama"
+                            placeholder="Nama Anda"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="email" class="form-label">Email</label>
+                          <input
+                            type="email"
+                            class="form-control rounded-3"
+                            id="email"
+                            placeholder="nama@contoh.com"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="pesan" class="form-label">Pesan</label>
+                          <textarea
+                            class="form-control rounded-3"
+                            id="pesan"
+                            rows="4"
+                            placeholder="Tulis pesan Anda di sini"
+                          ></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-3">
+                          Kirim Pesan
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-dark text-light py-4 text-center">
+        <div class="container">
+          <p class="mb-0">
+            &copy; 2023 Noora Aulia Hidayat. All rights reserved.
+          </p>
+        </div>
+      </footer>
+          <!-- Bootstrap Modal untuk Info Kontak -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="contactModalLabel">Info Kontak Noora</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="contact-info">
+              <p>
+                <i class="bi bi-envelope-fill"></i> Email:
+                nooraaulia20h@gmail.com
+              </p>
+              <p>
+                <i class="bi bi-telephone-fill"></i> Telepon:
+                +6289513822017
+              </p>
+              <p>
+                <i class="bi bi-geo-alt-fill"></i> Alamat: Jl.
+                Gilimanuk no.64, Lowokwaru, Malang, East Java,
+                Indonesia
+              </p>
+              <p>
+                <i class="bi bi-linkedin"></i> LinkedIn:
+                <a
+                  href="https://www.linkedin.com/in/nooraaulia/"
+                  target="_blank"
+                  >www.linkedin.com/in/nooraaulia/</a
+                >
+              </p>
+              <p>
+                <i class="bi bi-github"></i> GitHub:
+                <a href="https://github.com/noora20FH" target="_blank"
+                  >github.com/noora20FH</a
+                >
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
