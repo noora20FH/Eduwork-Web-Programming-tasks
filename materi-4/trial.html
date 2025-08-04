@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>NooRa. - Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav id="Navbar" class="navbar navbar-expand-lg navbar-dark navbar-custom">
+      <div class="container">
+        <a class="navbar-brand" href="#">NooRa.</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#hero"
+                >HOME</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">ABOUT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#portfolio">PORTFOLIO</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#experiences">EXPERIENCES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">CONTACT</a>
+            </li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+              <a href="#" class="btn btn-download-cv">Download CV</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+            <p class="lead mb-2">Hello, I'm</p>
+            <h1 class="mb-3">I am Anderson Coper</h1>
+            <p>
+              This is one many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.
+            </p>
+            <button class="btn btn-download-cv mt-3">Download CV</button>
+          </div>
+          <div class="col-md-6 text-center">
+            <img
+              src="https://placehold.co/400x400/e0b0ff/343a40?text=Hero+Image"
+              class="img-fluid hero-image"
+              alt="Hero Image"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="about-me-section">
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-4 text-center mb-4 mb-md-0">
+            <img
+              src="https://placehold.co/250x250/e0b0ff/343a40?text=Your+Image"
+              class="img-fluid about-me-image"
+              alt="Profile Image"
+            />
+          </div>
+          <div class="col-md-7">
+            <h2 class="display-5 mb-3">About <span style="color: var(--primary-color);">Me</span></h2>
+            <p class="lead">
+              Seorang pembelajar seumur hidup yang bersemangat tentang teknologi dan AI.
+            </p>
+            <p><strong>Education</strong></p>
+            <ul>
+              <li>Politeknik Negeri Malang AI</li>
+              <li>Politeknik Negeri Malang</li>
+            </ul>
+            <p><strong>Major:</strong> Informatics Engineering</p>
+            <p><strong>Minor:</strong> Computer Science and Computer Engineering</p>
+
+            <div class="skill-icon-grid">
+              <!-- Replace with actual SVG icons or images as needed -->
+              <div class="skill-icon">HTML</div>
+              <div class="skill-icon">CSS</div>
+              <div class="skill-icon">JS</div>
+              <div class="skill-icon">TS</div>
+              <div class="skill-icon">React</div>
+              <div class="skill-icon">Next.js</div>
+              <div class="skill-icon">Python</div>
+              <div class="skill-icon">Node.js</div>
+              <div class="skill-icon">Git</div>
+              <div class="skill-icon">Docker</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+      <div class="container">
+        <h2 class="text-center">My <span style="color: var(--primary-color);">Portofolio</span></h2>
+        <p class="text-center text-muted mb-5">
+          There are many variations of passages of Lorem Ipsum available, but the majority
+          have suffered alteration in some form, by injected humour.
+        </p>
+
+        <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#portfolioCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#portfolioCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#portfolioCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <!-- Carousel Item 1 -->
+            <div class="carousel-item active">
+              <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                  <div class="card portfolio-card">
+                    <img src="https://placehold.co/600x400/FFD700/000000?text=Project+1" class="card-img-top" alt="Project 1">
+                    <div class="card-body">
+                      <h5 class="card-title">Calathea Project</h5>
+                      <p class="card-text">
+                        Short description of Project 1, highlighting its key features or purpose.
+                      </p>
+                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                  <div class="card portfolio-card">
+                    <img src="https://placehold.co/600x400/FFD700/000000?text=Project+2" class="card-img-top" alt="Project 2">
+                    <div class="card-body">
+                      <h5 class="card-title">Another Project</h5>
+                      <p class="card-text">
+                        Short description of Project 2, highlighting its key features or purpose.
+                      </p>
+                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Carousel Item 2 -->
+            <div class="carousel-item">
+              <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                  <div class="card portfolio-card">
+                    <img src="https://placehold.co/600x400/ADD8E6/000000?text=Project+3" class="card-img-top" alt="Project 3">
+                    <div class="card-body">
+                      <h5 class="card-title">Web Design Portfolio</h5>
+                      <p class="card-text">
+                        Details about a web design project, showcasing responsive layouts.
+                      </p>
+                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                  <div class="card portfolio-card">
+                    <img src="https://placehold.co/600x400/90EE90/000000?text=Project+4" class="card-img-top" alt="Project 4">
+                    <div class="card-body">
+                      <h5 class="card-title">Mobile App Concept</h5>
+                      <p class="card-text">
+                        A concept for a mobile application, focusing on user experience.
+                      </p>
+                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Carousel Item 3 -->
+            <div class="carousel-item">
+              <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                  <div class="card portfolio-card">
+                    <img src="https://placehold.co/600x400/FFB6C1/000000?text=Project+5" class="card-img-top" alt="Project 5">
+                    <div class="card-body">
+                      <h5 class="card-title">Data Visualization</h5>
+                      <p class="card-text">
+                        An interactive data visualization project using modern libraries.
+                      </p>
+                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                  <div class="card portfolio-card">
+                    <img src="https://placehold.co/600x400/DDA0DD/000000?text=Project+6" class="card-img-top" alt="Project 6">
+                    <div class="card-body">
+                      <h5 class="card-title">E-commerce Redesign</h5>
+                      <p class="card-text">
+                        Redesign of an e-commerce platform for improved usability.
+                      </p>
+                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work Experience Section -->
+    <section id="experiences" class="experience-section">
+      <div class="container">
+        <h2 class="text-center">My <span style="color: var(--primary-color);">Work Experience</span></h2>
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-10">
+            <ul class="timeline">
+              <!-- Experience Item 1 -->
+              <li class="timeline-item">
+                <div class="timeline-content">
+                  <h5>UI/UX Designer</h5>
+                  <p class="text-muted">May 2020 - July 2023</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tristique odio et elit euismod tincidunt. Praesent eu quam et justo.</p>
+                </div>
+                <div class="timeline-badge"></div>
+              </li>
+              <!-- Experience Item 2 -->
+              <li class="timeline-item">
+                <div class="timeline-content">
+                  <h5>UI/UX Designer</h5>
+                  <p class="text-muted">May 2020 - July 2023</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tristique odio et elit euismod tincidunt. Praesent eu quam et justo.</p>
+                </div>
+                <div class="timeline-badge"></div>
+              </li>
+              <!-- Experience Item 3 -->
+              <li class="timeline-item">
+                <div class="timeline-content">
+                  <h5>UI/UX Designer</h5>
+                  <p class="text-muted">May 2020 - July 2023</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tristique odio et elit euismod tincidunt. Praesent eu quam et justo.</p>
+                </div>
+                <div class="timeline-badge"></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2 class="text-center">Contact <span style="color: var(--primary-color);">Me</span></h2>
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-5 mb-4 mb-md-0">
+            <div class="contact-info">
+              <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
+              <p><strong>Address:</strong> 23 S 80 Road, Benedict, NE, 68316, United States</p>
+              <p><strong>Phone:</strong> +01 123 456 789</p>
+              <p><strong>E-mail:</strong> abc-xyz@gmail.com</p>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <form class="contact-form">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Your Name"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="name@example.com"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea
+                  class="form-control"
+                  id="message"
+                  rows="5"
+                  placeholder="Write your message here."
+                ></textarea>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Send</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="Footer" class="footer-custom text-center">
+      <div class="container">&copy; 2025 NooRa. All Rights Reserved, Inc.</div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
