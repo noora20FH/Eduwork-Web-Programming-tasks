@@ -1,0 +1,61 @@
+/* style.css */
+
+/* Dominasi warna putih pada background */
+body {
+    background-color: #f8f9fa; /* Warna abu-abu muda yang hampir putih */
+}
+
+/* Gaya untuk Header dan Navbar */
+.bg-light, .card-header {
+    background-color: #e3f2fd !important; /* Warna biru muda */
+    border-bottom: 1px solid #d1e7ff;
+}
+
+/* Gaya untuk Kartu Produk */
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-color: #fff; /* Latar belakang putih */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efek melayang saat hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* Gaya untuk Tombol (Button) */
+.btn-outline-primary {
+    color: #e91e63; /* Warna pink magenta untuk teks */
+    border-color: #e91e63; /* Warna pink magenta untuk border */
+}
+
+.btn-outline-primary:hover {
+    background-color: #e91e63; /* Warna pink magenta saat hover */
+    color: #fff;
+    border-color: #e91e63;
+}
+
+/* Gaya untuk Input Pencarian */
+.form-control {
+    border-radius: 20px;
+}
+
+/* Gaya untuk Radio Button */
+.form-check-input:checked {
+    background-color: #ff9800; /* Warna orange */
+    border-color: #ff9800; /* Warna orange */
+}
+
+.form-check-input:checked[type=radio] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 152, 0, 0.25); /* Efek fokus dengan warna orange */
+}
