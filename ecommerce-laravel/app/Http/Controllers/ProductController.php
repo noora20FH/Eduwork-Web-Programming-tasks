@@ -38,6 +38,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'image' => 'nullable|url', // Asumsi URL gambar
+            'category' => 'nullable|string|max:255', // Validasi untuk kategori
         ]);
 
         // Buat produk baru di database
@@ -77,6 +78,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'image' => 'nullable|url',
+            'category' => 'nullable|string|max:255', // Validasi untuk kategori
         ]);
 
         // Update data produk

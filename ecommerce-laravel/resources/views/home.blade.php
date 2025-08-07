@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>K-Pop Mart - Merchandise K-Pop Resmi</title>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -314,7 +314,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <h2 class="mb-4 fw-bold" style="color: #7B68EE;">Tentang Kami</h2>
-                    <img src="{{ asset('image/kpop-web-logo.png') }}"  alt="K-Pop Mart Logo" class="img-fluid mb-4">
+                    <img src="{{ asset('image/kpop-web-logo.png') }}" alt="K-Pop Mart Logo" class="img-fluid mb-4">
                     <p class="lead text-muted">
                         K-Pop Mart adalah toko online terpercaya untuk semua kebutuhan merchandise K-Pop resmi.
                         Kami berkomitmen untuk menyediakan koleksi terbaik dan terlengkap dari idola favoritmu,
@@ -339,14 +339,15 @@
                         <li><a href="#" class="text-white text-decoration-none">Home</a></li>
                         <li><a href="#" class="text-white text-decoration-none">Produk</a></li>
                         <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Kontak</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Tentang Kami</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-3">
                     <h5>Ikuti Kami</h5>
-                    <a href="#" class="text-white me-2 text-decoration-none">Facebook</a>
-                    <a href="#" class="text-white me-2 text-decoration-none">Instagram</a>
-                    <a href="#" class="text-white text-decoration-none">Twitter</a>
+
+                    <a href="#" class="text-white me-2 fs-4"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white me-2 fs-4"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-white fs-4"><i class="bi bi-twitter"></i></a>
                 </div>
             </div>
             <hr class="text-white-50">

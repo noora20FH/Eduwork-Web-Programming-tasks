@@ -16,7 +16,7 @@ class ProductAndOrderSeeder extends Seeder
     public function run(): void
     {
         // Buat 10 user dummy
-        User::factory(10)->create();
+        User::factory(3)->create();
 
         // Buat 20 produk dummy
         Product::factory(20)->create();
