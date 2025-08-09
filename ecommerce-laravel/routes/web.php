@@ -23,7 +23,7 @@ Route::get('/register', function () {
 })->name('register');
 // Rute untuk halaman utama
 Route::get('/customer-home', function () {
-    return view('customer.home');
+    return view('home');
 })->name('customer-home');
 
 Route::get('/', function () {

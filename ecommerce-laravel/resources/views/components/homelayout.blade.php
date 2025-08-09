@@ -13,40 +13,10 @@
 </head>
 
 <body>
+    @include('partials.navbar')
+    {{ $slot }}
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-color);">
-
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="https://via.placeholder.com/150x40/7B68EE/FFFFFF?text=K-Pop+Mart" alt="Logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Produk</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang Kami</a>
-                    </li>
-                </ul>
-                @stack('nav-logged-in')
-            </div>
-        </div>
-    </nav>
-
-    <x-hero />
-    <x-maincontent />
-
-    <x-footer />
+    @include('partials.footer')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- <script src="js/home.js"></script> -->
     <script>
@@ -318,6 +288,25 @@
             firstGroupButton.click();
         }
     </script>
+        <script>
+    // Logika untuk menyembunyikan/menampilkan elemen navbar berdasarkan route
+    const customerHomeNav = document.getElementById('customer-home');
+    const homeNav = document.getElementById('home');
+    const currentPath = window.location.pathname;
+
+    // Secara default, sembunyikan keduanyaF
+    customerHomeNav.classList.add('d-none');
+    homeNav.classList.add('d-none');
+
+    // Tampilkan yang sesuai berdasarkan URL
+    if (currentPath === '/') {
+        // Tampilkan tombol untuk halaman utama (login/daftar)
+        homeNav.classList.remove('d-none');
+    } else if (currentPath === '/customer-home') {
+        // Tampilkan ikon keranjang dan profil untuk customer
+        customerHomeNav.classList.remove('d-none');
+    }
+</script>
 </body>
 
 </html>
