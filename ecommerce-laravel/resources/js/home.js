@@ -1,134 +1,267 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Data produk contoh dengan kategori grup
-    const products = [
-        {
+// Data produk contoh
+        const allProducts = [{
             name: "Album 'Don't Wanna Cry'",
             group: "Seventeen",
-            price: "Rp 350.000",
+            category: "Album",
+            price: 350000,
             image: "https://via.placeholder.com/400x400/9370DB/FFFFFF?text=Album+Seventeen",
             description: "Album lengkap dengan photocard dan poster.",
-            isNew: true,
-        },
-        {
+            isNew: true
+        }, {
             name: "Lightstick 'Carat Bong'",
             group: "Seventeen",
-            price: "Rp 600.000",
+            category: "Lightstick",
+            price: 600000,
             image: "https://via.placeholder.com/400x400/87CEEB/FFFFFF?text=Lightstick+Seventeen",
             description: "Lightstick official untuk konser.",
-            isNew: false,
-        },
-        {
+            isNew: false
+        }, {
             name: "Album 'S-Class'",
             group: "Straykids",
-            price: "Rp 380.000",
+            category: "Album",
+            price: 380000,
             image: "https://via.placeholder.com/400x400/FFB6C1/FFFFFF?text=Album+Straykids",
             description: "Album terbaru dengan photocard eksklusif.",
-            isNew: true,
-        },
-        {
+            isNew: true
+        }, {
             name: "Hoodie 'Blackpink'",
             group: "Blackpink",
-            price: "Rp 475.000",
+            category: "Pakaian",
+            price: 475000,
             image: "https://via.placeholder.com/400x400/DA70D6/FFFFFF?text=Hoodie+Blackpink",
             description: "Hoodie official untuk penggemar Blackpink.",
-            isNew: false,
-        },
-        {
+            isNew: false
+        }, {
             name: "Album 'Overload'",
             group: "X-Heroes",
-            price: "Rp 250.000",
+            category: "Album",
+            price: 250000,
             image: "https://via.placeholder.com/400x400/9370DB/FFFFFF?text=Album+X-Heroes",
             description: "Mini album pertama dari Xdinary Heroes.",
-            isNew: true,
-        },
-        {
+            isNew: true
+        }, {
             name: "Kaos 'NCTzen'",
             group: "NCT",
-            price: "Rp 180.000",
+            category: "Pakaian",
+            price: 180000,
             image: "https://via.placeholder.com/400x400/87CEEB/FFFFFF?text=Kaos+NCT",
             description: "Kaos fanmade dengan logo NCTzen.",
-            isNew: false,
-        },
-        {
+            isNew: false
+        }, {
             name: "Album 'Odd Eye'",
             group: "Shinee",
-            price: "Rp 300.000",
+            category: "Album",
+            price: 300000,
             image: "https://via.placeholder.com/400x400/FFB6C1/FFFFFF?text=Album+Shinee",
             description: "Album comeback Shinee.",
-            isNew: true,
-        },
-        {
+            isNew: true
+        }, {
             name: "Photocard 'EXO'",
             group: "EXO",
-            price: "Rp 120.000",
+            category: "Aksesoris",
+            price: 120000,
             image: "https://via.placeholder.com/400x400/DA70D6/FFFFFF?text=Photocard+EXO",
             description: "Set photocard edisi terbatas.",
-            isNew: false,
+            isNew: false
+        }, {
+            name: "Lightstick 'Lightstick Pink'",
+            group: "Blackpink",
+            category: "Lightstick",
+            price: 750000,
+            image: "https://via.placeholder.com/400x400/FF69B4/FFFFFF?text=Lightstick+BP",
+            description: "Lightstick official untuk Blinks.",
+            isNew: false
+        }, {
+            name: "Tote Bag 'Straykids'",
+            group: "Straykids",
+            category: "Pakaian",
+            price: 150000,
+            image: "https://via.placeholder.com/400x400/808080/FFFFFF?text=Tote+Bag+SKZ",
+            description: "Tote bag official Straykids.",
+            isNew: true
+        }, {
+            name: "Keychain 'EXO'",
+            group: "EXO",
+            category: "Aksesoris",
+            price: 85000,
+            image: "https://via.placeholder.com/400x400/4169E1/FFFFFF?text=Keychain+EXO",
+            description: "Gantungan kunci official EXO.",
+            isNew: false
         },
+        {
+            name: "T-Shirt 'Blackpink in Your Area'",
+            group: "Blackpink",
+            category: "Pakaian",
+            price: 250000.00,
+            image: "https://via.placeholder.com/400x400/BDB76B/FFFFFF?text=T-Shirt+Blackpink",
+            description: "T-shirt official dari tur Blackpink.",
+            isNew: true
+        },
+        {
+            name: "Hoodie 'EXO Planet'",
+            group: "EXO",
+            category: "Pakaian",
+            price: 480000.00,
+            image: "https://via.placeholder.com/400x400/4682B4/FFFFFF?text=Hoodie+EXO",
+            description: "Hoodie official dari tur konser EXO.",
+            isNew: false
+        },
+        {
+            name: "Photocard 'NCT Dream'",
+            group: "NCT Dream",
+            category: "Aksesoris",
+            price: 130000.00,
+            image: "https://via.placeholder.com/400x400/90EE90/FFFFFF?text=Photocard+NCT+Dream",
+            description: "Set photocard edisi khusus dari NCT Dream.",
+            isNew: false
+        },
+        {
+            name: "Hoodie 'Seventeen'",
+            group: "Seventeen",
+            category: "Pakaian",
+            price: 490000.00,
+            image: "https://via.placeholder.com/400x400/9370DB/FFFFFF?text=Hoodie+Seventeen",
+            description: "Hoodie official untuk penggemar Seventeen.",
+            isNew: false
+        },
+        {
+            name: "Album 'Glitch Mode'",
+            group: "NCT Dream",
+            category: "Album",
+            price: 315000.00,
+            image: "https://via.placeholder.com/400x400/6A5ACD/FFFFFF?text=Album+NCT+Dream",
+            description: "Album studio kedua dari NCT Dream.",
+            isNew: true
+        },
+        {
+            name: "Lightstick 'Eri-bong'",
+            group: "EXO",
+            category: "Lightstick",
+            price: 610000.00,
+            image: "https://via.placeholder.com/400x400/BDB76B/FFFFFF?text=Lightstick+EXO",
+            description: "Lightstick resmi untuk penggemar EXO.",
+            isNew: false
+        },
+        {
+            name: "T-Shirt 'Stray Kids'",
+            group: "Stray Kids",
+            category: "Pakaian",
+            price: 210000.00,
+            image: "https://via.placeholder.com/400x400/808080/FFFFFF?text=T-Shirt+Stray+Kids",
+            description: "T-shirt official dari Stray Kids.",
+            isNew: true
+        },
+        {
+            name: "Keyring 'Blackpink'",
+            group: "Blackpink",
+            category: "Aksesoris",
+            price: 95000.00,
+            image: "https://via.placeholder.com/400x400/FF69B4/FFFFFF?text=Keyring+Blackpink",
+            description: "Gantungan kunci official Blackpink.",
+            isNew: false
+        },
+        {
+            name: "Album 'NCT 2020 Resonance Pt. 1'",
+            group: "NCT",
+            category: "Album",
+            price: 360000,
+            image: "https://via.placeholder.com/400x400/3CB371/FFFFFF?text=Album+NCT",
+            description: "Album studio kedua dari NCT.",
+            isNew: false
+        }
     ];
 
-    const productList = document.getElementById("product-list");
-    const productTitle = document.getElementById("product-section-title");
-    const filterButtons = document.getElementById("filter-buttons");
+        const productList = document.getElementById('productList');
+        const filterButtons = document.getElementById('filter-buttons');
+        const productSectionTitle = document.getElementById('product-section-title');
 
-    // Fungsi untuk merender produk berdasarkan grup
-    const renderProducts = (group) => {
-        productList.innerHTML = ""; // Kosongkan daftar produk
-        const filteredProducts =
-            group === "Semua"
-                ? products
-                : products.filter((p) => p.group === group);
+        // Fungsi untuk membuat tombol filter grup secara dinamis
+        const createGroupFilters = () => {
+            // Dapatkan semua grup unik dari data produk
+            const uniqueGroups = [...new Set(allProducts.map(p => p.group))];
 
-        // Ubah judul bagian produk
-        productTitle.textContent = `Produk ${group}`;
+            // Kosongkan container filter sebelumnya
+            filterButtons.innerHTML = '';
 
-        // Loop untuk membuat card produk
-        filteredProducts.forEach((product) => {
-            const col = document.createElement("div");
-            col.classList.add("col");
-            col.innerHTML = `
-                        <div class="card h-100 shadow-sm">
-                            <img src="${
-                                product.image
-                            }" class="card-img-top" alt="${
-                product.name
-            }" style="height: 250px; object-fit: cover;">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">${product.name}</h5>
-                                <p class="card-text">${product.description}</p>
-                                ${
-                                    product.isNew
-                                        ? '<span class="badge bg-warning text-dark mb-2">Baru</span>'
-                                        : ""
-                                }
-                                <h4 class="fw-bold mt-auto" style="color: #FFC107;">${
-                                    product.price
-                                }</h4>
-                                <div class="d-grid mt-2">
-                                    <a href="#" class="btn" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Lihat Detail</a>
-                                </div>
+            // Buat tombol untuk setiap grup unik
+            uniqueGroups.forEach(group => {
+                const button = document.createElement('button');
+                button.classList.add('btn', 'rounded-pill', 'px-4', 'filter-btn', 'btn-outline-primary');
+                button.dataset.group = group;
+                button.textContent = group;
+                filterButtons.appendChild(button);
+            });
+        };
+
+        // Fungsi untuk merender produk berdasarkan grup
+        const renderProductsByGroup = (groupName) => {
+            let filteredProducts = [...allProducts];
+
+            // Filter berdasarkan grup
+            if (groupName) {
+                filteredProducts = filteredProducts.filter(p => p.group === groupName);
+                productSectionTitle.textContent = groupName;
+            } else {
+                // Tampilkan semua produk jika tidak ada grup yang dipilih
+                productSectionTitle.textContent = 'Semua Produk';
+            }
+
+            // Batasi hanya satu baris produk (misalnya, 4 produk)
+            const productsToDisplay = filteredProducts.slice(0, 4);
+
+            // Kosongkan daftar produk
+            productList.innerHTML = '';
+
+            if (productsToDisplay.length === 0) {
+                productList.innerHTML = '<div class="col-12 text-center mt-5"><p class="lead text-muted">Tidak ada produk yang ditemukan untuk grup ini.</p></div>';
+                return;
+            }
+
+            // Loop untuk membuat card produk
+            productsToDisplay.forEach(product => {
+                const col = document.createElement('div');
+                col.classList.add('col');
+                col.innerHTML = `
+                    <div class="card h-100 shadow-sm">
+                        <img src="${product.image}" class="card-img-top" alt="${product.name}" style="height: 250px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">${product.description}</p>
+                            ${product.isNew ? '<span class="badge bg-warning text-dark mb-2">Baru</span>' : ''}
+                            <h4 class="fw-bold mt-auto" style="color: #FFC107;">Rp ${product.price.toLocaleString('id-ID')}</h4>
+                            <div class="d-grid mt-2">
+                                <a href="#" class="btn" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Lihat Detail</a>
                             </div>
                         </div>
-                    `;
-            productList.appendChild(col);
+                    </div>
+                `;
+                productList.appendChild(col);
+            });
+        };
+
+
+        // Event listener untuk filter grup
+        filterButtons.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const groupName = e.target.dataset.group;
+
+                // Hapus kelas 'active' dari semua tombol, lalu tambahkan ke tombol yang diklik
+                filterButtons.querySelectorAll('.filter-btn').forEach(item => {
+                    item.classList.remove('active');
+                    item.classList.add('btn-outline-primary');
+                });
+                e.target.classList.add('active');
+                e.target.classList.remove('btn-outline-primary');
+
+                renderProductsByGroup(groupName);
+            }
         });
-    };
 
-    // Event listener untuk tombol filter
-    filterButtons.addEventListener("click", (e) => {
-        if (e.target.tagName === "BUTTON") {
-            // Hapus kelas 'active' dari semua tombol
-            document
-                .querySelectorAll(".filter-btn")
-                .forEach((btn) => btn.classList.remove("active"));
-            // Tambahkan kelas 'active' ke tombol yang diklik
-            e.target.classList.add("active");
+        // Panggil fungsi untuk membuat tombol filter saat halaman pertama kali dimuat
+        createGroupFilters();
 
-            const group = e.target.dataset.group;
-            renderProducts(group);
+        // Tampilkan produk dari grup pertama secara default
+        const firstGroupButton = filterButtons.querySelector('button');
+        if (firstGroupButton) {
+            firstGroupButton.click();
         }
-    });
-
-    // Render semua produk saat halaman pertama kali dimuat
-    renderProducts("Semua");
-});

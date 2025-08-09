@@ -1,28 +1,22 @@
     <main class="container my-5">
 
+<!-- Bagian Filter Kategori -->
+<h2 class="text-center mb-4">Kategori Pilihan</h2>
+<div id="filter-buttons" class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+    <!-- Tombol grup akan dibuat secara dinamis di sini oleh home.js -->
+</div>
 
-        <!-- Bagian Filter Kategori -->
-        <h2 class="text-center mb-4">Kategori Pilihan</h2>
-        <div id="filter-buttons" class="d-flex flex-wrap justify-content-center gap-3 mb-5">
-            <button class="btn rounded-pill px-4 filter-btn active" data-group="Semua">Semua</button>
-            <button class="btn rounded-pill px-4 filter-btn" data-group="Seventeen">Seventeen</button>
-            <button class="btn rounded-pill px-4 filter-btn" data-group="Straykids">Straykids</button>
-            <button class="btn rounded-pill px-4 filter-btn" data-group="Blackpink">Blackpink</button>
-            <button class="btn rounded-pill px-4 filter-btn" data-group="X-Heroes">X-Heroes</button>
-            <button class="btn rounded-pill px-4 filter-btn" data-group="NCT">NCT</button>
-            <button class="btn rounded-pill px-4 filter-btn" data-group="Shinee">Shinee</button>
-            <button class="btn rounded-pill px-4 filter-btn" data-group="EXO">EXO</button>
-        </div>
+<!-- Bagian Produk yang Difilter -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 id="product-section-title" class="fw-bold text-dark">Produk Terbaru</h2>
+    <a href="/products" class="text-decoration-none text-dark fw-bold">lihat semua</a>
+</div>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5" id="productList">
+    <!-- Produk akan dimuat di sini oleh JavaScript -->
+</div>
 
-        <!-- Bagian Produk yang Difilter -->
-        <h2 id="product-section-title" class="text-center mb-4">Produk Terbaru</h2>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5" id="product-list">
-            <!-- Produk akan dimuat di sini oleh JavaScript -->
-        </div>
 
-        <div class="text-center mt-4">
-            <a href="#" class="btn btn-lg btn-primary-custom" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Lihat Semua Produk</a>
-        </div>
+
 
         <section id="faq-section" class="container my-5">
             <h2 class="text-center mb-5 fw-bold" style="color: #7B68EE;">FAQ</h2>

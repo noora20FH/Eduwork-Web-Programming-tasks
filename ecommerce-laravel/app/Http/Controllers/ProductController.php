@@ -33,12 +33,14 @@ class ProductController extends Controller
     {
         // Validasi data input
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'nullable',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-            'image' => 'nullable|url', // Asumsi URL gambar
-            'category' => 'nullable|string|max:255', // Validasi untuk kategori
+            'name' => 'required|string|max:255',
+            'group' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'price' => 'required|numeric|decimal:0,2', // Validasi untuk decimal dengan 2 angka di belakang koma
+            'stock' => 'required|integer|min:0', // Validasi 'stock' harus bilangan bulat dan minimal 0
+            'image' => 'nullable', // 'image' bisa kosong dan harus berupa URL
+            'description' => 'nullable|string', // 'description' bisa kosong
+            'isNew' => 'nullable|boolean', // 'isNew' bisa kosong dan harus boolean
         ]);
 
         // Buat produk baru di database
