@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 
 </head>
 
@@ -288,25 +288,43 @@
             firstGroupButton.click();
         }
     </script>
-        <script>
-    // Logika untuk menyembunyikan/menampilkan elemen navbar berdasarkan route
-    const customerHomeNav = document.getElementById('customer-home');
-    const homeNav = document.getElementById('home');
-    const currentPath = window.location.pathname;
+    <script>
+        // Logika untuk menyembunyikan/menampilkan elemen navbar berdasarkan route
+        const customerHomeNav = document.getElementById('customer-home');
+        const homeNav = document.getElementById('home');
+        const currentPath = window.location.pathname;
 
-    // Secara default, sembunyikan keduanyaF
-    customerHomeNav.classList.add('d-none');
-    homeNav.classList.add('d-none');
+        // Secara default, sembunyikan keduanyaF
+        customerHomeNav.classList.add('d-none');
+        homeNav.classList.add('d-none');
 
-    // Tampilkan yang sesuai berdasarkan URL
-    if (currentPath === '/') {
-        // Tampilkan tombol untuk halaman utama (login/daftar)
-        homeNav.classList.remove('d-none');
-    } else if (currentPath === '/customer-home') {
-        // Tampilkan ikon keranjang dan profil untuk customer
-        customerHomeNav.classList.remove('d-none');
-    }
-</script>
+        // Tampilkan yang sesuai berdasarkan URL
+        if (currentPath === '/') {
+            // Tampilkan tombol untuk halaman utama (login/daftar)
+            homeNav.classList.remove('d-none');
+        } else {
+            // Tampilkan ikon keranjang dan profil untuk customer
+            customerHomeNav.classList.remove('d-none');
+        }
+    </script>
+
+    <!-- Profile Edit -->
+
+    <script>
+        const profileImage = document.getElementById('profile-image');
+        const profilePhotoUpload = document.getElementById('profile-photo-upload');
+
+        profilePhotoUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    profileImage.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 
 </html>
