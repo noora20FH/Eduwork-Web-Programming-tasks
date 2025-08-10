@@ -1,53 +1,4 @@
-<!doctype html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daftar Pesanan - K-Pop Mart</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-color: #7B68EE;
-            --font-color: #333;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--font-color);
-            background-color: #f8f9fa;
-        }
-
-        .btn-kpop {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-kpop:hover {
-            background-color: #6a5acd;
-            border-color: #6a5acd;
-            color: white;
-        }
-        
-        .order-card {
-            border-left: 5px solid var(--primary-color);
-            transition: transform 0.2s;
-        }
-
-        .order-card:hover {
-            transform: translateY(-3px);
-        }
-    </style>
-</head>
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-color);">
-        <div class="container">
-            <a class="navbar-brand" href="#">K-Pop Mart</a>
-            </div>
-    </nav>
+<x-mainlayout title="Daftar Pesanan">
     
     <main class="container my-5">
         <h1 class="mb-4">Daftar Pesanan</h1>
@@ -122,9 +73,4 @@
         </div>
     </main>
 
-    <footer class="footer py-5 mt-5" style="background-color: var(--primary-color);">
-        </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</x-mainlayout>

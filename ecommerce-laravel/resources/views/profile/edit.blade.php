@@ -1,4 +1,4 @@
-<x-homelayout title="Edit Profile">
+<x-mainlayout title="Edit Profile">
 
 <div class="container my-5">
         <div class="row justify-content-center">
@@ -41,4 +41,4 @@
             </div>
         </div>
     </div>
-</x-homelayout>
+</x-mainlayout>

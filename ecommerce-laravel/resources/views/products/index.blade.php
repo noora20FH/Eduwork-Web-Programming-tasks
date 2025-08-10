@@ -1,68 +1,4 @@
-<!doctype html>
-<html lang="id">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>K-Pop Mart - Halaman Produk</title>
-    <!-- Font Poppins untuk tampilan yang lebih modern -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Gaya ini harus tetap di sini karena tidak dapat dibuat inline */
-        .filter-btn.active, .sort-btn.active {
-            background-color: #7B68EE;
-            color: white;
-            border-color: #7B68EE;
-        }
-        .filter-btn:hover, .sort-btn:hover {
-            background-color: #7B68EE;
-            color: white;
-            border-color: #7B68EE;
-        }
-        .btn-primary-custom:hover {
-            background-color: #6a5acd !important;
-            border-color: #6a5acd !important;
-        }
-    </style>
-</head>
-
-<body class="bg-light" style="font-family: 'Poppins', sans-serif; color: #333;">
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #7B68EE;">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="https://via.placeholder.com/150x40/7B68EE/FFFFFF?text=K-Pop+Mart" alt="Logo" style="height: 40px;">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Produk</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang Kami</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a href="#" class="btn btn-outline-light me-2">
-                        <i class="bi bi-cart"></i>
-                    </a>
-                    <a href="#" class="btn btn-outline-light ms-2"><i class="bi bi-person-circle"></i> Profile</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<x-mainlayout title="K-Pop Mart Products">
 
     <!-- Konten Utama Halaman Produk -->
     <main class="container my-5">
@@ -147,40 +83,7 @@
             @endforelse
         </div>
     </main>
-
-    <!-- Footer -->
-    <footer class="py-5 mt-5 text-white" style="background-color: #7B68EE;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <h5>K-Pop Mart</h5>
-                    <p class="text-white-50">Toko online terpercaya untuk semua kebutuhan merchandise K-Pop resmi. Dapatkan koleksi terbaik dari idola favoritmu.</p>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Tautan Cepat</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Produk</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Tentang Kami</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Ikuti Kami</h5>
-                    <a href="#" class="text-white me-2 fs-4"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-white me-2 fs-4"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-white fs-4"><i class="bi bi-twitter"></i></a>
-                </div>
-            </div>
-            <hr class="text-white-50">
-            <div class="text-center text-white-50">
-                &copy; 2025 K-Pop Mart. All Rights Reserved.
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+<script>
         // Catatan: Seluruh fungsionalitas JavaScript untuk filter dan sortir produk
         // telah dihapus karena sekarang ditangani oleh backend Laravel.
         // Data produk akan diambil dari variabel Blade `$products`.
@@ -218,6 +121,4 @@
             });
         });
     </script>
-</body>
-
-</html>
+</x-mainlayout>

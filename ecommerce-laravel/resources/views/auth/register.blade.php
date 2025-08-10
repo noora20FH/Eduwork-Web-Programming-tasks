@@ -21,7 +21,7 @@
                     <input type="password" class="form-control" id="confirm_password" name="password_confirmation" placeholder="confirm password" required>
                 </div>
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-lg" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Sign In With Email</button>
+                    <button type="submit" class="btn btn-lg" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Sign Up With Email</button>
                 </div>
             </form>
             

@@ -1,4 +1,4 @@
-<x-homelayout title="K-Pop Mart">
+<x-mainlayout title="K-Pop Mart">
 
 
 
@@ -140,4 +140,4 @@
         </section>
     </main>
 
-</x-homelayout>
+</x-mainlayout>

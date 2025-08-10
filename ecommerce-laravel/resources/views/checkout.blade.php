@@ -1,77 +1,4 @@
-<!doctype html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Checkout - K-Pop Mart</title>
-
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts - Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome untuk ikon (opsional, tapi berguna untuk UI) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            --primary-color: #7B68EE;
-            --secondary-color: #f8f9fa;
-            --text-color: #333;
-            --link-color: #7B68EE;
-            --font-family: 'Poppins', sans-serif;
-            --kpop-accent: #7B68EE; /* Warna kustom untuk highlight */
-        }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-        }
-
-        .container {
-            max-width: 1100px;
-        }
-
-        .checkout-progress {
-            margin-bottom: 2rem;
-        }
-
-        .checkout-progress .breadcrumb-item.active {
-            color: var(--kpop-accent);
-        }
-
-        .card-order-summary .list-group-item {
-            border-bottom: 1px solid rgba(0, 0, 0, .05);
-        }
-
-        .card-order-summary .list-group-item:last-child {
-            border-bottom: none;
-        }
-        
-        .card-product-detail img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .btn-kpop {
-            background-color: var(--kpop-accent);
-            border-color: var(--kpop-accent);
-            color: white;
-            font-weight: 600;
-        }
-        
-        .btn-kpop:hover {
-            background-color: #6a5acd;
-            border-color: #6a5acd;
-            color: white;
-        }
-    </style>
-</head>
-<body>
+<x-mainlayout title="K-Pop Mart Checkout">
 
 <main class="container my-5">
     <h1 class="mb-4">Checkout</h1>
@@ -79,8 +6,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb checkout-progress">
             <li class="breadcrumb-item"><a href="#">Keranjang</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Pengiriman</li>
             <li class="breadcrumb-item">Pembayaran</li>
+            <li class="breadcrumb-item active" aria-current="page">Pengiriman</li>
             <li class="breadcrumb-item">Selesai</li>
         </ol>
     </nav>
@@ -196,7 +123,4 @@
     </div>
 </main>
 
-<!-- Bootstrap 5 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</x-mainlayout>

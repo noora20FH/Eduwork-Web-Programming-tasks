@@ -1,71 +1,4 @@
-<!doctype html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Detail Produk - {{ $product->name }}</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-color: #7B68EE;
-            --font-color: #333;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--font-color);
-            background-color: #f8f9fa;
-        }
-
-        .btn-kpop {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-kpop:hover {
-            background-color: #6a5acd;
-            border-color: #6a5acd;
-            color: white;
-        }
-        
-        .breadcrumb-item a {
-            color: var(--primary-color);
-        }
-
-        .product-image-main {
-            border: 1px solid #ddd;
-            padding: 5px;
-        }
-
-        .product-thumbnail {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-        
-        .product-thumbnail:hover, .product-thumbnail.active {
-            border-color: var(--primary-color);
-        }
-
-        .nav-tabs .nav-link.active {
-            color: var(--primary-color);
-            border-color: var(--primary-color) var(--primary-color) white !important;
-        }
-    </style>
-</head>
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-color);">
-        <div class="container">
-            <a class="navbar-brand" href="#">K-Pop Mart</a>
-            </div>
-    </nav>
+<x-mainlayout title="K-Pop Mart Produk details">
     
     <main class="container my-5">
         <nav aria-label="breadcrumb">
@@ -134,11 +67,6 @@
         
         </main>
 
-    <footer class="footer py-5 mt-5" style="background-color: var(--primary-color);">
-        </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
         const thumbnails = document.querySelectorAll('.product-thumbnail');
         const mainImage = document.getElementById('mainProductImage');
@@ -151,5 +79,4 @@
             });
         });
     </script>
-</body>
-</html>
+</x-mainlayout>
