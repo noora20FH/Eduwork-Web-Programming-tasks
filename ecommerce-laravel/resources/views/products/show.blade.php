@@ -28,12 +28,16 @@
                 
                 <p>{{ $product->description }}</p>
 
-                <div class="d-grid gap-2">
-                    <button class="btn btn-kpop btn-lg" type="button">
-                        <i class="bi bi-cart-plus me-2"></i> Tambah ke Keranjang
-                    </button>
-                    <button class="btn btn-outline-dark btn-lg" type="button">Beli Sekarang</button>
-                </div>
+<div class="d-grid gap-2">
+    <a href="{{ route('cart')}}" class="btn btn-kpop btn-lg">
+        <i class="bi bi-cart-plus me-2"></i> Tambah ke Keranjang
+    </a>
+
+    <a href="{{ route('checkout')}}" class="btn btn-outline-dark btn-lg">
+        Beli Sekarang
+    </a>
+</div>
+
                 
                 <hr class="my-4">
                 

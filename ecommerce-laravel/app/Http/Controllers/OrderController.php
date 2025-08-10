@@ -26,6 +26,7 @@ class OrderController extends Controller
         return view('orders.show', compact('order'));
     }
     
+    
     // Metode create, store, update, dan destroy biasanya
     // tidak langsung diakses dari browser, tetapi melalui form checkout
     // atau API, jadi kita bisa mengabaikannya untuk saat ini.

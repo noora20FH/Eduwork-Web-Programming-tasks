@@ -13,14 +13,14 @@
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
                     <h5 class="display-4 fw-bold text-white">Album Terbaru dari Idola Favoritmu</h5>
                     <p class="lead text-white-50">Dapatkan album terbaru dengan photocard eksklusif!</p>
-                    <a href="#" class="btn btn-kpop btn-lg mt-3">Belanja Sekarang</a>
+                    <a href="{{route('products.index')}}" class="btn btn-kpop btn-lg mt-3">Belanja Sekarang</a>
                 </div>
             </div>
             <div class="carousel-item" style="background-image: url('https://via.placeholder.com/1920x600/FFC107/FFFFFF?text=PROMO+LIGHTSTICK'); background-size: cover; background-position: center; height: 500px;">
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
                     <h5 class="display-4 fw-bold text-black">Promo Spesial Lightstick</h5>
                     <p class="lead text-black-50">Siapkan dirimu untuk konser dengan lightstick resmi!</p>
-                    <a href="#" class="btn btn-kpop btn-lg mt-3">Lihat Promo</a>
+                    <a href="{{route('products.index')}}" class="btn btn-kpop btn-lg mt-3">Lihat Promo</a>
                 </div>
             </div>
             <div class="carousel-item" style="background-image: url('https://via.placeholder.com/1920x600/4B0082/FFFFFF?text=OFFICIAL+APPAREL'); background-size: cover; background-position: center; height: 500px;">
@@ -52,7 +52,7 @@
         <!-- Bagian Produk yang Difilter -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 id="product-section-title" class="fw-bold text-dark">Produk Terbaru</h2>
-            <a href="/products" class="text-decoration-none text-dark fw-bold">lihat semua</a>
+            <a href="{{route('products.index')}}" class="link-primary">lihat semua</a>
         </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5" id="productList">
             <!-- Produk akan dimuat di sini oleh JavaScript -->

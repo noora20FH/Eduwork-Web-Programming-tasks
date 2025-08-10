@@ -8,17 +8,17 @@
             <div class="col-md-4 mb-3">
                 <h5>Tautan Cepat</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white text-decoration-none">Home</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Produk</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Tentang Kami</a></li>
+                    <li><a href="{{ route('home') }}" class="text-white text-decoration-none">Home</a></li>
+                    <li><a href="{{ route('products.index') }}" class="text-white text-decoration-none">Produk</a></li>
+                    <li><a href="{{ url('/#faq-section') }}" class="text-white text-decoration-none">FAQ</a></li>
+                    <li><a href="{{ url('/#about-us') }}" class="text-white text-decoration-none">Tentang Kami</a></li>
                 </ul>
             </div>
             <div class="col-md-4 mb-3">
                 <h5>Ikuti Kami</h5>
-                <a href="#" class="text-white me-2 fs-4"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="text-white me-2 fs-4"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="text-white fs-4"><i class="bi bi-twitter"></i></a>
+                <a href="https://www.facebook.com/" class="text-white me-2 fs-4" target="_blank"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/" class="text-white me-2 fs-4" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://x.com/?lang=en-id" class="text-white fs-4" target="_blank"><i class="bi bi-twitter"></i></a>
             </div>
         </div>
         <hr class="text-white-50">
