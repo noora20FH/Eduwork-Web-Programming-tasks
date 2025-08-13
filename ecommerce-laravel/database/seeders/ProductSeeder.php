@@ -2,26 +2,25 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product; // Pastikan model Product sudah ada
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Product;
+
 
 class ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        // Data produk dari file JSON atau array
         $products = [
             [
                 'name' => "Album 'Don't Wanna Cry'",
                 'group' => "Seventeen",
-                'category' => "Album",
+                'category_id' => 1,
                 'price' => 350000,
-                'stock' => 50, // Tambahan kolom 'stock'
+                'stock' => 50,
                 'image' => "https://via.placeholder.com/400x400/9370DB/FFFFFF?text=Album+Seventeen",
                 'description' => "Album lengkap dengan photocard dan poster.",
                 'isNew' => true
@@ -29,9 +28,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Lightstick 'Carat Bong'",
                 'group' => "Seventeen",
-                'category' => "Lightstick",
+                'category_id' => 2,
                 'price' => 600000,
-                'stock' => 20, // Tambahan kolom 'stock'
+                'stock' => 20,
                 'image' => "https://via.placeholder.com/400x400/87CEEB/FFFFFF?text=Lightstick+Seventeen",
                 'description' => "Lightstick official untuk konser.",
                 'isNew' => false
@@ -39,9 +38,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Album 'S-Class'",
                 'group' => "Straykids",
-                'category' => "Album",
+                'category_id' => 1,
                 'price' => 380000,
-                'stock' => 45, // Tambahan kolom 'stock'
+                'stock' => 45,
                 'image' => "https://via.placeholder.com/400x400/FFB6C1/FFFFFF?text=Album+Straykids",
                 'description' => "Album terbaru dengan photocard eksklusif.",
                 'isNew' => true
@@ -49,9 +48,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Hoodie 'Blackpink'",
                 'group' => "Blackpink",
-                'category' => "Pakaian",
+                'category_id' => 3,
                 'price' => 475000,
-                'stock' => 30, // Tambahan kolom 'stock'
+                'stock' => 30,
                 'image' => "https://via.placeholder.com/400x400/DA70D6/FFFFFF?text=Hoodie+Blackpink",
                 'description' => "Hoodie official untuk penggemar Blackpink.",
                 'isNew' => false
@@ -59,9 +58,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Album 'Overload'",
                 'group' => "X-Heroes",
-                'category' => "Album",
+                'category_id' => 1,
                 'price' => 250000,
-                'stock' => 60, // Tambahan kolom 'stock'
+                'stock' => 60,
                 'image' => "https://via.placeholder.com/400x400/9370DB/FFFFFF?text=Album+X-Heroes",
                 'description' => "Mini album pertama dari Xdinary Heroes.",
                 'isNew' => true
@@ -69,9 +68,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Kaos 'NCTzen'",
                 'group' => "NCT",
-                'category' => "Pakaian",
+                'category_id' => 3,
                 'price' => 180000,
-                'stock' => 75, // Tambahan kolom 'stock'
+                'stock' => 75,
                 'image' => "https://via.placeholder.com/400x400/87CEEB/FFFFFF?text=Kaos+NCT",
                 'description' => "Kaos fanmade dengan logo NCTzen.",
                 'isNew' => false
@@ -79,9 +78,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Album 'Odd Eye'",
                 'group' => "Shinee",
-                'category' => "Album",
+                'category_id' => 1,
                 'price' => 300000,
-                'stock' => 40, // Tambahan kolom 'stock'
+                'stock' => 40,
                 'image' => "https://via.placeholder.com/400x400/FFB6C1/FFFFFF?text=Album+Shinee",
                 'description' => "Album comeback Shinee.",
                 'isNew' => true
@@ -89,9 +88,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Photocard 'EXO'",
                 'group' => "EXO",
-                'category' => "Aksesoris",
+                'category_id' => 4,
                 'price' => 120000,
-                'stock' => 100, // Tambahan kolom 'stock'
+                'stock' => 100,
                 'image' => "https://via.placeholder.com/400x400/DA70D6/FFFFFF?text=Photocard+EXO",
                 'description' => "Set photocard edisi terbatas.",
                 'isNew' => false
@@ -99,9 +98,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Lightstick 'Lightstick Pink'",
                 'group' => "Blackpink",
-                'category' => "Lightstick",
+                'category_id' => 2,
                 'price' => 750000,
-                'stock' => 15, // Tambahan kolom 'stock'
+                'stock' => 15,
                 'image' => "https://via.placeholder.com/400x400/FF69B4/FFFFFF?text=Lightstick+BP",
                 'description' => "Lightstick official untuk Blinks.",
                 'isNew' => false
@@ -109,9 +108,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Tote Bag 'Straykids'",
                 'group' => "Straykids",
-                'category' => "Pakaian",
+                'category_id' => 3,
                 'price' => 150000,
-                'stock' => 80, // Tambahan kolom 'stock'
+                'stock' => 80,
                 'image' => "https://via.placeholder.com/400x400/808080/FFFFFF?text=Tote+Bag+SKZ",
                 'description' => "Tote bag official Straykids.",
                 'isNew' => true
@@ -119,9 +118,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Keychain 'EXO'",
                 'group' => "EXO",
-                'category' => "Aksesoris",
+                'category_id' => 4,
                 'price' => 85000,
-                'stock' => 90, // Tambahan kolom 'stock'
+                'stock' => 90,
                 'image' => "https://via.placeholder.com/400x400/4169E1/FFFFFF?text=Keychain+EXO",
                 'description' => "Gantungan kunci official EXO.",
                 'isNew' => false
@@ -129,9 +128,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "T-Shirt 'Blackpink in Your Area'",
                 'group' => "Blackpink",
-                'category' => "Pakaian",
+                'category_id' => 3,
                 'price' => 250000.00,
-                'stock' => 65, // Tambahan kolom 'stock'
+                'stock' => 65,
                 'image' => "https://via.placeholder.com/400x400/BDB76B/FFFFFF?text=T-Shirt+Blackpink",
                 'description' => "T-shirt official dari tur Blackpink.",
                 'isNew' => true
@@ -139,9 +138,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Hoodie 'EXO Planet'",
                 'group' => "EXO",
-                'category' => "Pakaian",
+                'category_id' => 3,
                 'price' => 480000.00,
-                'stock' => 25, // Tambahan kolom 'stock'
+                'stock' => 25,
                 'image' => "https://via.placeholder.com/400x400/4682B4/FFFFFF?text=Hoodie+EXO",
                 'description' => "Hoodie official dari tur konser EXO.",
                 'isNew' => false
@@ -149,9 +148,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Photocard 'NCT Dream'",
                 'group' => "NCT Dream",
-                'category' => "Aksesoris",
+                'category_id' => 4,
                 'price' => 130000.00,
-                'stock' => 120, // Tambahan kolom 'stock'
+                'stock' => 120,
                 'image' => "https://via.placeholder.com/400x400/90EE90/FFFFFF?text=Photocard+NCT+Dream",
                 'description' => "Set photocard edisi khusus dari NCT Dream.",
                 'isNew' => false
@@ -159,9 +158,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Hoodie 'Seventeen'",
                 'group' => "Seventeen",
-                'category' => "Pakaian",
+                'category_id' => 3,
                 'price' => 490000.00,
-                'stock' => 35, // Tambahan kolom 'stock'
+                'stock' => 35,
                 'image' => "https://via.placeholder.com/400x400/9370DB/FFFFFF?text=Hoodie+Seventeen",
                 'description' => "Hoodie official untuk penggemar Seventeen.",
                 'isNew' => false
@@ -169,9 +168,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Album 'Glitch Mode'",
                 'group' => "NCT Dream",
-                'category' => "Album",
+                'category_id' => 1,
                 'price' => 315000.00,
-                'stock' => 55, // Tambahan kolom 'stock'
+                'stock' => 55,
                 'image' => "https://via.placeholder.com/400x400/6A5ACD/FFFFFF?text=Album+NCT+Dream",
                 'description' => "Album studio kedua dari NCT Dream.",
                 'isNew' => true
@@ -179,9 +178,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Lightstick 'Eri-bong'",
                 'group' => "EXO",
-                'category' => "Lightstick",
+                'category_id' => 2,
                 'price' => 610000.00,
-                'stock' => 18, // Tambahan kolom 'stock'
+                'stock' => 18,
                 'image' => "https://via.placeholder.com/400x400/BDB76B/FFFFFF?text=Lightstick+EXO",
                 'description' => "Lightstick resmi untuk penggemar EXO.",
                 'isNew' => false
@@ -189,9 +188,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "T-Shirt 'Stray Kids'",
                 'group' => "Stray Kids",
-                'category' => "Pakaian",
+                'category_id' => 3,
                 'price' => 210000.00,
-                'stock' => 70, // Tambahan kolom 'stock'
+                'stock' => 70,
                 'image' => "https://via.placeholder.com/400x400/808080/FFFFFF?text=T-Shirt+Stray+Kids",
                 'description' => "T-shirt official dari Stray Kids.",
                 'isNew' => true
@@ -199,9 +198,9 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Keyring 'Blackpink'",
                 'group' => "Blackpink",
-                'category' => "Aksesoris",
+                'category_id' => 4,
                 'price' => 95000.00,
-                'stock' => 95, // Tambahan kolom 'stock'
+                'stock' => 95,
                 'image' => "https://via.placeholder.com/400x400/FF69B4/FFFFFF?text=Keyring+Blackpink",
                 'description' => "Gantungan kunci official Blackpink.",
                 'isNew' => false
@@ -209,16 +208,15 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Album 'NCT 2020 Resonance Pt. 1'",
                 'group' => "NCT",
-                'category' => "Album",
+                'category_id' => 1,
                 'price' => 360000,
-                'stock' => 48, // Tambahan kolom 'stock'
+                'stock' => 48,
                 'image' => "https://via.placeholder.com/400x400/3CB371/FFFFFF?text=Album+NCT",
                 'description' => "Album studio kedua dari NCT.",
                 'isNew' => false
             ]
         ];
-
-        // Memasukkan data ke database menggunakan model
+                // Memasukkan data ke database menggunakan model
         foreach ($products as $product) {
             Product::create($product);
         }

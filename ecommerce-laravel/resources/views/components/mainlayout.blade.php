@@ -22,8 +22,12 @@
 
     @include('partials.footer')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="js/home.js"></script> -->
-    <script>
+
+    <!-- Direktori public/js -->
+    <script src="js/home.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/profile.js"></script>
+    <!-- <script>
         // Data produk contoh
         const allProducts = [{
                 name: "Album 'Don't Wanna Cry'",
@@ -291,8 +295,8 @@
         if (firstGroupButton) {
             firstGroupButton.click();
         }
-    </script>
-    <script>
+    </script> -->
+    <!-- <script>
         // Logika untuk menyembunyikan/menampilkan elemen navbar berdasarkan route
         const customerHomeNav = document.getElementById('customer-home');
         const homeNav = document.getElementById('home');
@@ -310,11 +314,11 @@
             // Tampilkan ikon keranjang dan profil untuk customer
             customerHomeNav.classList.remove('d-none');
         }
-    </script>
+    </script> -->
 
     <!-- Profile Edit -->
 
-    <script>
+    <!-- <script>
         const profileImage = document.getElementById('profile-image');
         const profilePhotoUpload = document.getElementById('profile-photo-upload');
 
@@ -328,7 +332,7 @@
                 reader.readAsDataURL(file);
             }
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

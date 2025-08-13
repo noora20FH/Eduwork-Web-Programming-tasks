@@ -14,4 +14,12 @@ class Order extends Model
         'total_amount',
         'status',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function product()
+    {
+        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id');
+    }
 }

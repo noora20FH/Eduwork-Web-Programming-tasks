@@ -26,9 +26,15 @@ class OrdersTableSeeder extends Seeder
         );
 
         // Pastikan ada beberapa produk di database
+        // Ambil kategori berdasarkan nama, sesuai dengan isi tabel product_categories
+        $categoryAlbum = \App\Models\ProductCategory::where('name', 'Album')->first();
+        $categoryLightstick = \App\Models\ProductCategory::where('name', 'Lightstick')->first();
+        $categoryPakaian = \App\Models\ProductCategory::where('name', 'Pakaian')->first();
+        $categoryAksesoris = \App\Models\ProductCategory::where('name', 'Aksesoris')->first();
+
         $product1 = Product::firstOrCreate(['name' => "Hoodie 'Seventeen'"], [
             'group' => "Seventeen",
-            'category' => "Pakaian",
+            'category_id' => $categoryPakaian ? $categoryPakaian->id : null,
             'price' => 490000.00,
             'stock' => 35,
             'image' => "https://via.placeholder.com/400x400/9370DB/FFFFFF?text=Hoodie+Seventeen",
@@ -38,7 +44,7 @@ class OrdersTableSeeder extends Seeder
 
         $product2 = Product::firstOrCreate(['name' => "Album 'Glitch Mode'"], [
             'group' => "NCT Dream",
-            'category' => "Album",
+            'category_id' => $categoryAlbum ? $categoryAlbum->id : null,
             'price' => 315000.00,
             'stock' => 55,
             'image' => "https://via.placeholder.com/400x400/6A5ACD/FFFFFF?text=Album+NCT+Dream",
@@ -48,7 +54,7 @@ class OrdersTableSeeder extends Seeder
         
         $product3 = Product::firstOrCreate(['name' => "Lightstick 'Eri-bong'"], [
             'group' => "EXO",
-            'category' => "Lightstick",
+            'category_id' => $categoryLightstick ? $categoryLightstick->id : null,
             'price' => 610000.00,
             'stock' => 18,
             'image' => "https://via.placeholder.com/400x400/BDB76B/FFFFFF?text=Lightstick+EXO",
