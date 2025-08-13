@@ -1,10 +1,8 @@
 <x-mainlayout title="K-Pop Mart Products">
 
-    <!-- Konten Utama Halaman Produk -->
     <main class="container my-5">
         <h1 class="text-center mb-5" style="color: #7B68EE;">Semua Produk</h1>
 
-        <!-- Fitur Pencarian dan Filter -->
         <div class="row mb-4">
             <div class="col-lg-6 mb-3">
                 <div class="input-group">
@@ -13,7 +11,6 @@
                 </div>
             </div>
             <div class="col-lg-6 d-flex flex-column flex-md-row justify-content-end gap-2">
-                <!-- Dropdown Filter Kategori -->
                 <div class="dropdown me-md-2 mb-2 mb-md-0">
                     <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownKategori" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid #7B68EE; color: #495057;">
                         Kategori
@@ -27,7 +24,6 @@
                     </ul>
                 </div>
 
-                <!-- Dropdown Filter Nama Grup -->
                 <div class="dropdown me-md-2 mb-2 mb-md-0">
                     <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownGrup" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid #7B68EE; color: #495057;">
                         Grup
@@ -44,7 +40,6 @@
                     </ul>
                 </div>
 
-                <!-- Dropdown Sortir Harga -->
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" id="dropdownSortir" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid #7B68EE; color: #495057;">
                         Harga
@@ -58,7 +53,6 @@
             </div>
         </div>
 
-        <!-- Daftar Produk -->
         <div id="productList" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             {{-- Loop through the products passed from the controller --}}
             @forelse ($products as $product)
@@ -82,20 +76,20 @@
             </div>
             @endforelse
         </div>
-    </main>
-<script>
-        // Catatan: Seluruh fungsionalitas JavaScript untuk filter dan sortir produk
-        // telah dihapus karena sekarang ditangani oleh backend Laravel.
-        // Data produk akan diambil dari variabel Blade `$products`.
-        // Event listeners di bawah ini tidak akan berfungsi tanpa backend.
 
+        <div class="d-flex justify-content-center mt-4">
+            {{-- Menampilkan tautan paginasi dengan styling Bootstrap 5 --}}
+            {{ $products->links('pagination::bootstrap-5') }}
+        </div>
+    </main>
+
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('searchInput');
             const kategoriFilter = document.getElementById('kategoriFilter');
             const grupFilter = document.getElementById('grupFilter');
             const sortirHarga = document.getElementById('sortirHarga');
 
-            // Contoh: Mengganti teks dropdown saat filter diklik (front-end visual saja)
             kategoriFilter.addEventListener('click', (e) => {
                 if (e.target.tagName === 'A') {
                     kategoriFilter.querySelectorAll('.dropdown-item').forEach(item => item.classList.remove('active'));
