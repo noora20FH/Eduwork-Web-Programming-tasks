@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +29,9 @@ Route::get('/customer-home', function () {
 })->name('customer-home');
 
 Route::get('/', function () {
+    return view('home');
+})->name('home');
+Route::get('/home', function () {
     return view('home');
 })->name('home');
 // Rute resource untuk Product. Ini otomatis membuat rute untuk:
@@ -57,4 +61,21 @@ Route::get('/profile-edit', function () {
     return view('profile.edit');
 })->name('profile-edit');
 
-Route::resource('profile', ProfileController::class)->only(['show', 'edit', 'update']);
+// Route::resource('profile', ProfileController::class)->only(['show', 'edit', 'update']);
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+//laravel breeze default
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

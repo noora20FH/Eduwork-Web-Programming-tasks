@@ -1,48 +1,52 @@
-<x-authlayout title='Register - K-Pop Mart'>
-            <div class="w-100 p-md-4 p-3" style="max-width: 450px;">
-            <div class="mb-3 text-end">
-                <a href="{{ route('login') }}" class="text-decoration-none text-muted">Login</a>
-            </div>
-            <h3 class="mb-3 text-center fw-semibold">Create an account</h3>
-            <p class="text-center text-muted mb-4">Enter your email below to create your account</p>
-            
-            <form action="{{ route('register') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="full_name" name="full_name" placeholder="full name" required>
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
-                </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
-                </div>
-                <div class="mb-4">
-                    <input type="password" class="form-control" id="confirm_password" name="password_confirmation" placeholder="confirm password" required>
-                </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-lg" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Sign Up With Email</button>
-                </div>
-            </form>
-            
-            <div class="d-flex align-items-center text-center text-muted my-4">
-                <span class="flex-grow-1 border-bottom border-secondary-subtle"></span>
-                <span class="mx-2">OR CONTINUE WITH</span>
-                <span class="flex-grow-1 border-bottom border-secondary-subtle"></span>
-            </div>
-            
-            <div class="d-grid">
-                <button class="btn btn-light btn-lg border border-secondary-subtle d-flex justify-content-center align-items-center fw-medium">
-                    <img src="https://www.google.com/favicon.ico" alt="Google icon" class="me-2" style="width: 20px; height: 20px;">
-                    Google
-                </button>
-            </div>
+<x-guest-layout>
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
 
-            <div class="mt-4 text-center text-secondary" style="font-size: 0.8rem;">
-                By clicking continue, you agree to our 
-                <a href="#" class="text-decoration-none" style="color: #7B68EE;">Terms of Service</a> 
-                and 
-                <a href="#" class="text-decoration-none" style="color: #7B68EE;">Privacy Policy</a>.
-            </div>
+        <!-- Name -->
+        <div>
+            <x-input-label for="name" :value="__('Name')" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-</x-authlayout>
+
+        <!-- Email Address -->
+        <div class="mt-4">
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- Password -->
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="new-password" />
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mt-4">
+            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+
+            <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                            type="password"
+                            name="password_confirmation" required autocomplete="new-password" />
+
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+        <div class="flex items-center justify-end mt-4">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                {{ __('Already registered?') }}
+            </a>
+
+            <x-primary-button class="ms-4">
+                {{ __('Register') }}
+            </x-primary-button>
+        </div>
+    </form>
+</x-guest-layout>

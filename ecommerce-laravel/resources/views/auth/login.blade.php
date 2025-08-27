@@ -1,42 +1,47 @@
-<x-authlayout title='Login - K-Pop Mart'>        
-        <div class="w-100 p-md-4 p-3" style="max-width: 450px;">
-            <div class="mb-3 text-end">
-                <a href="#" class="text-decoration-none text-muted">Register</a>
-            </div>
-            <h3 class="mb-3 text-center fw-semibold">Login</h3>
-            <p class="text-center text-muted mb-4">Fill the form below to login</p>
-            
-            <form action="{{ route('login') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
-                </div>
-                <div class="mb-4">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
-                </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-lg" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Login</button>
-                </div>
-            </form>
-            
-            <div class="d-flex align-items-center text-center text-muted my-4">
-                <span class="flex-grow-1 border-bottom border-secondary-subtle"></span>
-                <span class="mx-2">OR CONTINUE WITH</span>
-                <span class="flex-grow-1 border-bottom border-secondary-subtle"></span>
-            </div>
-            
-            <div class="d-grid">
-                <button class="btn btn-light btn-lg border border-secondary-subtle d-flex justify-content-center align-items-center fw-medium">
-                    <img src="https://www.google.com/favicon.ico" alt="Google icon" class="me-2" style="width: 20px; height: 20px;">
-                    Google
-                </button>
-            </div>
+<x-guest-layout>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-            <div class="mt-4 text-center text-secondary" style="font-size: 0.8rem;">
-                By clicking continue, you agree to our 
-                <a href="#" class="text-decoration-none" style="color: #7B68EE;">Terms of Service</a> 
-                and 
-                <a href="#" class="text-decoration-none" style="color: #7B68EE;">Privacy Policy</a>.
-            </div>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <!-- Email Address -->
+        <div>
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-</x-authlayout>
+
+        <!-- Password -->
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+
+        <!-- Remember Me -->
+        <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+            </label>
+        </div>
+
+        <div class="flex items-center justify-end mt-4">
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
+
+            <x-primary-button class="ms-3">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
+    </form>
+</x-guest-layout>
