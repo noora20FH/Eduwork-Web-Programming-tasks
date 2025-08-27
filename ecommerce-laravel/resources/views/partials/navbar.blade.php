@@ -21,40 +21,51 @@
                     <a class="nav-link" href="{{ url('/#about-us') }}">Tentang Kami</a>
                 </li>
             </ul>
-
-            <div id='customer-home' class="d-flex gap-2">
+ @auth
+            <div  class="d-flex gap-2">
                 <a href="{{ route('cart') }}" class="btn btn-outline-light">
                     <i class="bi bi-cart"></i>
                 </a>
-                <!-- Dropdown Profil Baru -->
                 <div class="dropdown">
                     <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i> Profile
+                        <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end p-2">
-                        <!-- Informasi Profil -->
-                        <li class="profile-info d-flex align-items-center">
-                            <img src="https://via.placeholder.com/48" alt="Profile Photo" class="profile-photo">
+                        <!-- Informasi Profil Dinamis -->
+                        <li class="profile-info d-flex align-items-center mb-2 px-3">
+                            <img src="https://via.placeholder.com/48" alt="Profile Photo" class="profile-photo rounded-circle me-2">
                             <div>
-                                <h6 class="mb-0">Nama Pengguna</h6>
-                                <p class="text-muted mb-0" style="font-size: 0.875em;">email@contoh.com</p>
+                                <h6 class="mb-0">{{ Auth::user()->name }}</h6>
+                                <p class="text-muted mb-0" style="font-size: 0.875em;">{{ Auth::user()->email }}</p>
                             </div>
                         </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <!-- Tautan -->
                         <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i>Edit Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('orders.index') }}"><i class="bi bi-box-seam me-2"></i>Orders</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <!-- Tautan Logout -->
                         <li>
-                            <hr class="dropdown-divider">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="dropdown-item text-danger" href="{{ route('home') }}"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="bi bi-box-arrow-right text-danger me-2"></i>Logout
+                                </a>
+                            </form>
                         </li>
-                        <li><a class="dropdown-item text-danger" href="{{ route('home') }}"><i class="bi bi-box-arrow-right text-danger me-2"></i>Logout</a></li>
                     </ul>
                 </div>
             </div>
+            @endauth
 
-
-            <div id='home' class="d-flex">
+            <!-- Bagian ini akan muncul HANYA jika pengguna BELUM login -->
+            @guest
+            <div  class="d-flex">
                 <a href="{{ route('login') }}" class="btn btn-outline-light mx-1">Masuk</a>
                 <a href="{{ route('register') }}" class="btn btn-light mx-1">Daftar</a>
             </div>
+            @endguest
 
 
         </div>

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
+use App\Models\Authentication;
 
 
 /*
@@ -16,6 +18,7 @@ use App\Http\Controllers\ProfileController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
@@ -48,17 +51,6 @@ Route::resource('products', ProductController::class);
 // Rute untuk Order.
 // GET    /orders                  -> index  (menampilkan daftar pesanan)
 // GET    /orders/{order}          -> show   (menampilkan detail satu pesanan)
-Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
-Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-
-// Rute untuk halaman statis lainnya
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
-
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
 
 // Route::get('/profile-edit', function () {
 //     return view('profile.edit');
@@ -76,9 +68,21 @@ Route::get('/dashboard', function () {
 
 //laravel breeze default
 Route::middleware('auth')->group(function () {
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+
+    // Rute untuk halaman statis lainnya
+    Route::get('/cart', function () {
+        return view('cart');
+    })->name('cart');
+
+    Route::get('/checkout', function () {
+        return view('checkout');
+    })->name('checkout');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
