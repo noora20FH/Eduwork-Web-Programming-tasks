@@ -57,9 +57,9 @@ Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
 
-Route::get('/profile-edit', function () {
-    return view('profile.edit');
-})->name('profile-edit');
+// Route::get('/profile-edit', function () {
+//     return view('profile.edit');
+// })->name('profile-edit');
 
 // Route::resource('profile', ProfileController::class)->only(['show', 'edit', 'update']);
 

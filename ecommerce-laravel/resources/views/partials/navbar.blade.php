@@ -40,7 +40,7 @@
                                 <p class="text-muted mb-0" style="font-size: 0.875em;">email@contoh.com</p>
                             </div>
                         </li>
-                        <li><a class="dropdown-item" href="{{ route('profile-edit') }}"><i class="bi bi-person me-2"></i>Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i>Edit Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('orders.index') }}"><i class="bi bi-box-seam me-2"></i>Orders</a></li>
                         <li>
                             <hr class="dropdown-divider">
