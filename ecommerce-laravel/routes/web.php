@@ -23,6 +23,9 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
+
+
+
 // Rute untuk halaman utama
 Route::get('/customer-home', function () {
     return view('home');
