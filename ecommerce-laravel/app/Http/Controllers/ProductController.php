@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Product;
@@ -9,13 +10,45 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua produk dari database
-        $products = Product::paginate(8);
-        // Tampilkan view 'products.index' dan kirim data produk
+    $query = Product::query();
+
+    // Menggunakan eager loading untuk memuat data kategori
+    $query->with('category');
+
+    // Filter Berdasarkan Kategori
+    if ($request->has('category') && $request->category !== 'Semua') {
+        // Gunakan whereHas untuk memfilter berdasarkan nama kategori
+        $query->whereHas('category', function ($q) use ($request) {
+            $q->where('name', $request->category);
+        });
+    }
+
+    // Filter Berdasarkan Grup
+    if ($request->has('group') && $request->group !== 'Semua') {
+        $query->where('group', $request->group);
+    }
+
+    // Filter Berdasarkan Pencarian (Search)
+    if ($request->has('search')) {
+        $query->where('name', 'like', '%' . $request->search . '%');
+    }
+
+    // Urutkan (Sort) Berdasarkan Harga
+    if ($request->has('sort')) {
+        if ($request->sort === 'asc') {
+            $query->orderBy('price', 'asc');
+        } elseif ($request->sort === 'desc') {
+            $query->orderBy('price', 'desc');
+        }
+    }
+
+        // Ambil produk dengan pagination
+        $products = $query->paginate(8)->withQueryString();
+
+        // Kirim data ke view
         return view('products.index', compact('products'));
-        
     }
 
     /**

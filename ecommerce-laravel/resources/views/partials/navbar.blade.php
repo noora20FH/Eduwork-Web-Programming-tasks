@@ -9,20 +9,31 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
+                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" aria-current="page" href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('products.index') }}">Produk</a>
+                    <a class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">Produk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/#faq-section') }}">FAQ</a>
+                    <!-- Untuk link anchor, kita cek URL. -->
+                    <a class="nav-link {{ Request::is('/') && request()->url() . '#faq-section' == url('/#faq-section') ? 'active' : '' }}" href="{{ url('/#faq-section') }}">FAQ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/#about-us') }}">Tentang Kami</a>
+                    <!-- Untuk link anchor, kita cek URL. -->
+                    <a class="nav-link {{ Request::is('/') && request()->url() . '#about-us' == url('/#about-us') ? 'active' : '' }}" href="{{ url('/#about-us') }}">Tentang Kami</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ url('dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin-products.index') ? 'active' : '' }}" href="{{ route('admin-products.index') }}">Product List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('product-category.index') ? 'active' : '' }}" href="{{ route('product-category.index') }}">Product Category</a>
                 </li>
             </ul>
- @auth
-            <div  class="d-flex gap-2">
+            @auth
+            <div class="d-flex gap-2">
                 <a href="{{ route('cart') }}" class="btn btn-outline-light">
                     <i class="bi bi-cart"></i>
                 </a>
@@ -39,11 +50,15 @@
                                 <p class="text-muted mb-0" style="font-size: 0.875em;">{{ Auth::user()->email }}</p>
                             </div>
                         </li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <!-- Tautan -->
                         <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i>Edit Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('orders.index') }}"><i class="bi bi-box-seam me-2"></i>Orders</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <!-- Tautan Logout -->
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
@@ -61,7 +76,7 @@
 
             <!-- Bagian ini akan muncul HANYA jika pengguna BELUM login -->
             @guest
-            <div  class="d-flex">
+            <div class="d-flex">
                 <a href="{{ route('login') }}" class="btn btn-outline-light mx-1">Masuk</a>
                 <a href="{{ route('register') }}" class="btn btn-light mx-1">Daftar</a>
             </div>

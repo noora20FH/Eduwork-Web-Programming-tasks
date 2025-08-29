@@ -12,18 +12,19 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'description',
+        'group',
+        'category_id',
         'price',
         'stock',
         'image',
-        'category',
+        'description'
     ];
-        /**
+    /**
      * Dapatkan pesanan (order) yang memiliki item pesanan ini.
      *
      * @return BelongsTo
      */
-    public function ProductCategory(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(ProductCategory::class);
     }

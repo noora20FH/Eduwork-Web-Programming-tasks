@@ -1,8 +1,13 @@
 <x-mainlayout title="K-Pop Mart Keranjang Belanja">
-    
+
     <main class="container my-5">
+        <x-breadcrumb :items="[
+    ['label' => 'Produk', 'url' => route('products.index')],
+    ['label' => 'Cart', 'url' => route('cart')],
+]" />
+
         <h1 class="mb-4">Keranjang Belanja</h1>
-        
+
         <div class="row">
             <div class="col-lg-8">
                 <div class="card shadow-sm p-3">
@@ -102,10 +107,10 @@
                             <span class="fs-4 text-kpop-accent">Rp 2.025.000</span>
                         </li>
                     </ul>
-                    
+
                     <div class="d-grid gap-2 mt-4">
-                        <button class="btn btn-kpop btn-lg" type="button">Lanjut ke Pembayaran</button>
-                        <a href="#" class="btn btn-outline-secondary">Lanjutkan Belanja</a>
+                        <a class="btn btn-kpop btn-lg" href="{{ route('checkout')}}">Lanjut ke Pembayaran</a>
+                        <a class="btn btn-outline-secondary" href="{{ route('products.index')}}">Lanjutkan Belanja</a>
                     </div>
                 </div>
             </div>

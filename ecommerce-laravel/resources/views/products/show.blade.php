@@ -1,13 +1,11 @@
 <x-mainlayout title="K-Pop Mart Produk details">
-    
+
     <main class="container my-5">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Produk</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
-            </ol>
-        </nav>
+        <x-breadcrumb :items="[
+    ['label' => 'Home', 'url' => url('/')],
+    ['label' => 'Produk', 'url' => route('products.index')],
+    ['label' => $product->name, 'url' => '#'],
+]" />
 
         <div class="row">
             <div class="col-md-6 mb-4">
@@ -17,7 +15,7 @@
                         @if($product->image)
                         <img src="{{ $product->image }}" class="product-thumbnail me-2 rounded active" alt="{{ $product->name }}" onclick="document.getElementById('mainProductImage').src=this.src">
                         @endif
-                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -25,22 +23,22 @@
                 <h1>{{ $product->name }}</h1>
                 <p class="lead text-muted">{{ Str::limit($product->description, 100) }}</p>
                 <h2 class="text-kpop-accent fw-bold my-4">Rp {{ number_format($product->price, 0, ',', '.') }}</h2>
-                
+
                 <p>{{ $product->description }}</p>
 
-<div class="d-grid gap-2">
-    <a href="{{ route('cart')}}" class="btn btn-kpop btn-lg">
-        <i class="bi bi-cart-plus me-2"></i> Tambah ke Keranjang
-    </a>
+                <div class="d-grid gap-2">
+                    <a href="{{ route('cart')}}" class="btn btn-kpop btn-lg">
+                        <i class="bi bi-cart-plus me-2"></i> Tambah ke Keranjang
+                    </a>
 
-    <a href="{{ route('checkout')}}" class="btn btn-outline-dark btn-lg">
-        Beli Sekarang
-    </a>
-</div>
+                    <a href="{{ route('checkout')}}" class="btn btn-outline-dark btn-lg">
+                        Beli Sekarang
+                    </a>
+                </div>
 
-                
+
                 <hr class="my-4">
-                
+
                 <p><strong>Kategori:</strong> Album, Merchandise</p>
                 <p><strong>Stok:</strong> <span class="text-{{ $product->stock > 0 ? 'success' : 'danger' }} fw-bold">{{ $product->stock > 0 ? 'Tersedia' : 'Habis' }}</span></p>
             </div>
@@ -55,7 +53,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="spesifikasi-tab" data-bs-toggle="tab" data-bs-target="#spesifikasi" type="button" role="tab" aria-controls="spesifikasi" aria-selected="false">Spesifikasi</button>
                     </li>
-                    </ul>
+                </ul>
                 <div class="tab-content border border-top-0 p-3" id="productTabsContent">
                     <div class="tab-pane fade show active" id="deskripsi" role="tabpanel" aria-labelledby="deskripsi-tab">
                         <p>{{ $product->description }}</p>
@@ -68,8 +66,8 @@
                 </div>
             </div>
         </div>
-        
-        </main>
+
+    </main>
 
     <script>
         const thumbnails = document.querySelectorAll('.product-thumbnail');

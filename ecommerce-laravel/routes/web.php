@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductAdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Models\Product;
 use App\Models\Authentication;
 
@@ -48,28 +50,17 @@ Route::get('/home', function () {
 // DELETE /products/{product}      -> destroy
 Route::resource('products', ProductController::class);
 
-// Rute untuk Order.
-// GET    /orders                  -> index  (menampilkan daftar pesanan)
-// GET    /orders/{order}          -> show   (menampilkan detail satu pesanan)
-
-// Route::get('/profile-edit', function () {
-//     return view('profile.edit');
-// })->name('profile-edit');
-
-// Route::resource('profile', ProfileController::class)->only(['show', 'edit', 'update']);
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 //laravel breeze default
+
 Route::middleware('auth')->group(function () {
+    Route::resource('admin-products', ProductAdminController::class);
+    Route::resource('product-category', ProductCategoryController::class);
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->name('dashboard');
 
     // Rute untuk halaman statis lainnya
     Route::get('/cart', function () {
