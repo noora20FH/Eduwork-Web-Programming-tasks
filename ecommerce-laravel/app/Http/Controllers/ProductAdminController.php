@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 
 class ProductAdminController extends Controller
 {
@@ -12,7 +13,7 @@ class ProductAdminController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('category')->paginate(5);
         return view('admin.products.index', compact('products'));
     }
 
@@ -21,7 +22,8 @@ class ProductAdminController extends Controller
      */
     public function create()
     {
-        //
+        $categories= ProductCategory::all();
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -45,7 +47,14 @@ class ProductAdminController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        // Load relasi kategori untuk produk yang sedang diedit.
+        $product->load('category');
+
+        // Ambil semua kategori dari database untuk dropdown.
+        $categories = ProductCategory::all();
+        
+        // Kirim data produk dan semua kategori ke view.
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -61,6 +70,8 @@ class ProductAdminController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+         $product->delete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus!');
     }
 }
