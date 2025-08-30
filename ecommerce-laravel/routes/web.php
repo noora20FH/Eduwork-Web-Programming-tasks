@@ -54,13 +54,15 @@ Route::resource('products', ProductController::class);
 //laravel breeze default
 
 Route::middleware('auth')->group(function () {
-    Route::resource('admin-products', ProductAdminController::class);
+    Route::resource('admin-products', ProductAdminController::class)->parameters([
+    'admin-products' => 'product'
+]);;
     Route::resource('product-category', ProductCategoryController::class);
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
 
     // Rute untuk halaman statis lainnya
     Route::get('/cart', function () {

@@ -1,11 +1,8 @@
 <x-mainlayout title="K-Pop Mart">
 
-
-
-
     <main class="container my-5">
         <h1 class="mb-4">Kategori Produk</h1>
-        {{-- Tombol untuk membuka Modal --}}
+        {{-- Tombol untuk membuka Modal Tambah --}}
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
             Tambah Kategori
         </button>
@@ -16,7 +13,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">No.</th>
-                        <th scope="col">Nama Produk</th>
+                        <th scope="col">Nama Kategori</th>
                         <th scope="col">Jumlah Produk</th>
                         <th scope="col">Aksi</th>
                     </tr>
@@ -28,11 +25,17 @@
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->products_count }}</td>
                             <td class="d-flex gap-2">
-                                {{-- Tombol Edit --}}
-                                <a href="{{ route('product-category.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                {{-- Tombol Edit yang memicu modal --}}
+                                <button type="button" class="btn btn-sm btn-warning edit-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editCategoryModal"
+                                    data-category-id="{{ $category->id }}"
+                                    data-category-name="{{ $category->name }}">
+                                    Edit
+                                </button>
 
                                 {{-- Form dan Tombol Delete --}}
-                                <form action="{{ route('product-category.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">
+                                <form action="{{ route('product-category.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -41,7 +44,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center">Belum ada produk yang tersedia.</td>
+                            <td colspan="4" class="text-center">Belum ada kategori yang tersedia.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -52,11 +55,9 @@
         <div class="justify-content-between align-items-center mt-4">
             {{ $categories->links('pagination::bootstrap-5') }}
         </div>
-        
-
-
     </main>
-<!-- Modal untuk Tambah Kategori -->
+
+    <!-- Modal untuk Tambah Kategori -->
     <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -80,4 +81,57 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal untuk Edit Kategori -->
+    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCategoryModalLabel">Edit Kategori</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                {{-- Form akan diperbarui oleh JavaScript --}}
+                <form id="editCategoryForm" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="editCategoryName" class="form-label">Nama Kategori</label>
+                            <input type="text" class="form-control" id="editCategoryName" name="name" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dapatkan modal edit
+            const editModal = document.getElementById('editCategoryModal');
+
+            // Tambahkan event listener saat modal edit ditampilkan
+            editModal.addEventListener('show.bs.modal', function(event) {
+                // Tombol yang memicu modal
+                const button = event.relatedTarget;
+
+                // Ambil data dari atribut data-bs-*
+                const categoryId = button.getAttribute('data-category-id');
+                const categoryName = button.getAttribute('data-category-name');
+
+                // Dapatkan elemen form dan input di dalam modal
+                const form = editModal.querySelector('#editCategoryForm');
+                const nameInput = editModal.querySelector('#editCategoryName');
+
+                // Perbarui action form dengan ID kategori yang sesuai
+                form.action = `/product-category/${categoryId}`; 
+                // Isi input dengan nama kategori
+                nameInput.value = categoryName;
+            });
+        });
+    </script>
 </x-mainlayout>

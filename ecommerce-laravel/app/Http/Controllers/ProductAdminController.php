@@ -62,7 +62,27 @@ class ProductAdminController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'group' => 'nullable|string|max:255',
+            'product_category_id' => 'required|exists:product_categories,id',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'nullable|string',
+        ]);
+
+        // Handle file upload if a new image is provided
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('image'), $imageName);
+            $validatedData['image'] = $imageName;
+        }
+
+        // Update the product with validated data
+        $product->update($validatedData);
+
+        return redirect()->route('admin-products.index')->with('success', 'Produk berhasil diperbarui!');
     }
 
     /**
