@@ -17,6 +17,7 @@
                     <tr>
                         <th scope="col">No.</th>
                         <th scope="col">Nama Produk</th>
+                        <th scope="col">Jumlah Produk</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -25,6 +26,7 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $category->name }}</td>
+                            <td>{{ $category->products_count }}</td>
                             <td class="d-flex gap-2">
                                 {{-- Tombol Edit --}}
                                 <a href="{{ route('product-category.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
