@@ -6,9 +6,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Product;
 use App\Models\Authentication;
-
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,9 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('product-category', ProductCategoryController::class);
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
 
     // Rute untuk halaman statis lainnya
     Route::get('/cart', function () {

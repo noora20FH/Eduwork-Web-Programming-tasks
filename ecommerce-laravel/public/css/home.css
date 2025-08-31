@@ -4,6 +4,8 @@
             /* Warna ungu khas K-Pop */
             --secondary-color: #FFC107;
             /* Warna kuning untuk aksen */
+            --logo-color2:#3f23e6; 
+            --logo-color: #ff748c;
             --font-color: #333;
             --bg-color: #f8f9fa;
         }
@@ -74,4 +76,16 @@
             background-color: #7B68EE;
             color: white;
             border-color: #7B68EE;
+        }
+        .bg-custom-primary {
+            background-color: var(--logo-color2) !important;
+        }
+        .bg-custom-secondary {
+            background-color: var(--secondary-color) !important;
+        }
+        .bg-custom-logo {
+            background-color: var(--logo-color) !important;
+        }
+        .text-black {
+            color: black !important;
         }
