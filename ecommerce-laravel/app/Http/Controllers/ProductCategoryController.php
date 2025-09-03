@@ -13,8 +13,8 @@ class ProductCategoryController extends Controller
     public function index()
     {
         $categories = ProductCategory::withCount('products')
-        ->withSum('products','price')
-        ->paginate(5);
+            ->withSum('products', 'price')
+            ->paginate(5);
         return view('admin.product-category.index', compact('categories'));
     }
 
@@ -31,7 +31,18 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Langsung validasi, Laravel akan menangani redirect jika gagal
+        $request->validate([
+            'name' => 'required|string|max:255|unique:product_categories,name',
+        ]);
+
+        // Jika validasi sukses, buat kategori baru
+        ProductCategory::create([
+            'name' => $request->name,
+        ]);
+
+        // Redirect kembali dengan pesan sukses
+        return back()->with('success', 'Kategori berhasil ditambahkan!');
     }
 
     /**
@@ -53,34 +64,41 @@ class ProductCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-public function update(Request $request, ProductCategory $product)
-{
-    // Validasi permintaan. Gunakan ID kategori yang terikat untuk mengabaikan dirinya sendiri
-    $request->validate([
-        'name' => [
-            'required',
-            'string',
-            'max:255',
-            'unique:product_categories,name,' . $product->id
-        ],
-    ], [
-        'name.required' => 'Nama kategori wajib diisi.',
-        'name.unique' => 'Nama kategori sudah ada.'
-    ]);
+    public function update(Request $request, ProductCategory $productCategory)
+    {
+        // Validasi permintaan. Gunakan ID kategori yang terikat untuk mengabaikan dirinya sendiri
+        $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:product_categories,name,' . $productCategory->id
+            ],
+        ], [
+            'name.required' => 'Nama kategori wajib diisi.',
+            'name.unique' => 'Nama kategori sudah ada.'
+        ]);
 
-    // Perbarui nama kategori
-    $product->name = $request->name;
-    $product->save();
+        // Perbarui nama kategori
+        $productCategory->name = $request->name;
+        $productCategory->save();
 
-    // Kembali ke halaman sebelumnya dengan pesan sukses
-    return back()->with('success', 'Kategori berhasil diperbarui!');
-}
+        // Kembali ke halaman sebelumnya dengan pesan sukses
+        return back()->with('success', 'Kategori berhasil diperbarui!');
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ProductCategory $productCategory)
     {
-        //
+        // Hapus kategori
+        $productCategory->delete();
+
+        // Kembali ke halaman sebelumnya dengan pesan sukses
+        return back()->with('success', 'Kategori berhasil dihapus!');
+    
+    
+        
     }
 }

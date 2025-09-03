@@ -21,33 +21,33 @@
                 </thead>
                 <tbody>
                     @forelse ($categories as $category)
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $category->name }}</td>
-                            <td>{{ $category->products_count }}</td>
-                            <td>Rp {{ number_format($category->products_sum_price, 0, ',', '.') }}</td>
-                            <td class="d-flex gap-2">
-                                {{-- Tombol Edit yang memicu modal --}}
-                                <button type="button" class="btn btn-sm btn-warning edit-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editCategoryModal"
-                                    data-category-id="{{ $category->id }}"
-                                    data-category-name="{{ $category->name }}">
-                                    Edit
-                                </button>
+                    <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->products_count }}</td>
+                        <td>Rp {{ number_format($category->products_sum_price, 0, ',', '.') }}</td>
+                        <td class="d-flex gap-2">
+                            {{-- Tombol Edit yang memicu modal --}}
+                            <button type="button" class="btn btn-sm btn-warning edit-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editCategoryModal"
+                                data-category-id="{{ $category->id }}"
+                                data-category-name="{{ $category->name }}">
+                                Edit
+                            </button>
 
-                                {{-- Form dan Tombol Delete --}}
-                                <form action="{{ route('product-category.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
+                            {{-- Form dan Tombol Delete --}}
+                            <form action="{{ route('product-category.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="4" class="text-center">Belum ada kategori yang tersedia.</td>
-                        </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">Belum ada kategori yang tersedia.</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -72,7 +72,10 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="categoryName" class="form-label">Nama Kategori</label>
-                            <input type="text" class="form-control" id="categoryName" name="name" required>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="categoryName" name="name" required value="{{ old('name') }}">
+                            @error('name')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -99,7 +102,10 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="editCategoryName" class="form-label">Nama Kategori</label>
-                            <input type="text" class="form-control" id="editCategoryName" name="name" required>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="editCategoryName" name="name" required>
+                            @error('name')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -112,21 +118,38 @@
     </div>
 
     <script>
-       document.addEventListener('DOMContentLoaded', function() {
-    const editCategoryModal = document.getElementById('editCategoryModal');
-    editCategoryModal.addEventListener('show.bs.modal', function(event) {
-        const button = event.relatedTarget;
-        const categoryId = button.getAttribute('data-category-id');
-        const categoryName = button.getAttribute('data-category-name');
-        const modalForm = document.getElementById('editCategoryForm');
-        const modalInput = document.getElementById('editCategoryName');
+        document.addEventListener('DOMContentLoaded', function() {
+            const addCategoryModal = document.getElementById('addCategoryModal');
+            const editCategoryModal = document.getElementById('editCategoryModal');
 
-        // Perbarui URL form sesuai dengan rute 'admin-products/{product}'
-        modalForm.action = `/admin-products/${categoryId}`;
-        
-        // Masukkan nama kategori saat ini ke dalam input
-        modalInput.value = categoryName;
-    });
-});
+            // JavaScript untuk form tambah kategori (jika ada error, modal tetap terbuka)
+            // Cek apakah ada error validasi DAN input lama (yang menandakan POST request)
+            <?php if ($errors->any() && old('name')): ?>
+                const addModal = new bootstrap.Modal(addCategoryModal);
+                addModal.show();
+            <?php endif; ?>
+
+            // JavaScript untuk form edit kategori
+            editCategoryModal.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                const categoryId = button.getAttribute('data-category-id');
+                const categoryName = button.getAttribute('data-category-name');
+                const modalForm = document.getElementById('editCategoryForm');
+                const modalInput = document.getElementById('editCategoryName');
+
+                // Menggunakan rute yang benar dan mengisinya dengan ID kategori secara aman
+                modalForm.action = "{{ route('product-category.update', 'TEMP_ID') }}".replace('TEMP_ID', categoryId);
+
+                // Masukkan nama kategori saat ini ke dalam input
+                modalInput.value = categoryName;
+            });
+
+            // Logika untuk menampilkan kembali modal edit jika terjadi error validasi
+            // Cek apakah ada error validasi tetapi TIDAK ada input lama (yang menandakan PUT request)
+            <?php if ($errors->any() && !old('name')): ?>
+                const editModal = new bootstrap.Modal(editCategoryModal);
+                editModal.show();
+            <?php endif; ?>
+        });
     </script>
 </x-mainlayout>
