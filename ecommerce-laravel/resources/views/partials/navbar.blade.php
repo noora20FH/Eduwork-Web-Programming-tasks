@@ -8,6 +8,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @if(
+                (Auth::check() && (Auth::user()->role === 'customer')) ||
+                (!Auth::check())
+                )
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" aria-current="page" href="{{ url('/') }}">Home</a>
                 </li>
@@ -22,6 +26,8 @@
                     <!-- Untuk link anchor, kita cek URL. -->
                     <a class="nav-link {{ Request::is('/') && request()->url() . '#about-us' == url('/#about-us') ? 'active' : '' }}" href="{{ url('/#about-us') }}">Tentang Kami</a>
                 </li>
+                @endif
+                @if(Auth::check() && Auth::user()->role === 'admin')
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ url('dashboard') }}">Dashboard</a>
                 </li>
@@ -31,12 +37,15 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('product-category.index') ? 'active' : '' }}" href="{{ route('product-category.index') }}">Product Category</a>
                 </li>
+                @endif
             </ul>
             @auth
             <div class="d-flex gap-2">
+                @if(Auth::user()->role === 'customer')
                 <a href="{{ route('cart') }}" class="btn btn-outline-light">
                     <i class="bi bi-cart"></i>
                 </a>
+                @endif
                 <div class="dropdown">
                     <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
@@ -54,8 +63,14 @@
                             <hr class="dropdown-divider">
                         </li>
                         <!-- Tautan -->
-                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i>Edit Profile</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('profile.edit', ['profile' => Auth::user()->id]) }}">
+                                <i class="bi bi-person me-2"></i>Edit Profile
+                            </a>
+                        </li>
+                        @if(Auth::user()->role === 'customer')
                         <li><a class="dropdown-item" href="{{ route('orders.index') }}"><i class="bi bi-box-seam me-2"></i>Orders</a></li>
+                        @endif
                         <li>
                             <hr class="dropdown-divider">
                         </li>

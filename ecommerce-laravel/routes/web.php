@@ -33,16 +33,16 @@ Route::get('/register', function () {
 
 
 // Rute untuk halaman utama
-Route::get('/customer-home', function () {
-    return view('home');
-})->name('customer-home');
+// Route::get('/customer-home', function () {
+//     return view('home');
+// })->name('customer-home');
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+// Route::get('/home', function () {
+//     return view('home');
+// })->name('home');
 // Rute resource untuk Product. Ini otomatis membuat rute untuk:
 // GET    /products                -> index  (menampilkan daftar semua produk)
 // GET    /products/{product}      -> show   (menampilkan detail satu produk)
@@ -55,26 +55,31 @@ Route::resource('products', ProductController::class);
 //laravel breeze default
 
 Route::middleware('auth')->group(function () {
-    Route::resource('admin-products', ProductAdminController::class)->parameters([
-    'admin-products' => 'product'
-]);;
-    Route::resource('product-category', ProductCategoryController::class);
-    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
-    Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-    Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
+    Route::middleware('admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('admin-products', ProductAdminController::class)->parameters([
+            'admin-products' => 'product'
+        ]);
 
-    // Rute untuk halaman statis lainnya
-    Route::get('/cart', function () {
-        return view('cart');
-    })->name('cart');
+        Route::resource('product-category', ProductCategoryController::class);
+    });
+    Route::middleware('customer')->group(function () {
 
-    Route::get('/checkout', function () {
-        return view('checkout');
-    })->name('checkout');
+        Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+        // Rute untuk halaman statis lainnya
+        Route::get('/cart', function () {
+            return view('cart');
+        })->name('cart');
+
+        Route::get('/checkout', function () {
+            return view('checkout');
+        })->name('checkout');
+    });
+Route::resource('profile', ProfileController::class)->only([
+    'edit', 'update', 'destroy']);
 });
 
 require __DIR__ . '/auth.php';

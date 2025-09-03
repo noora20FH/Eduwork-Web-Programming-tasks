@@ -15,6 +15,7 @@
                         <th scope="col">No.</th>
                         <th scope="col">Nama Kategori</th>
                         <th scope="col">Jumlah Produk</th>
+                        <th scope="col">Total Harga</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -24,6 +25,7 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->products_count }}</td>
+                            <td>Rp {{ number_format($category->products_sum_price, 0, ',', '.') }}</td>
                             <td class="d-flex gap-2">
                                 {{-- Tombol Edit yang memicu modal --}}
                                 <button type="button" class="btn btn-sm btn-warning edit-btn"
@@ -110,28 +112,21 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Dapatkan modal edit
-            const editModal = document.getElementById('editCategoryModal');
+       document.addEventListener('DOMContentLoaded', function() {
+    const editCategoryModal = document.getElementById('editCategoryModal');
+    editCategoryModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const categoryId = button.getAttribute('data-category-id');
+        const categoryName = button.getAttribute('data-category-name');
+        const modalForm = document.getElementById('editCategoryForm');
+        const modalInput = document.getElementById('editCategoryName');
 
-            // Tambahkan event listener saat modal edit ditampilkan
-            editModal.addEventListener('show.bs.modal', function(event) {
-                // Tombol yang memicu modal
-                const button = event.relatedTarget;
-
-                // Ambil data dari atribut data-bs-*
-                const categoryId = button.getAttribute('data-category-id');
-                const categoryName = button.getAttribute('data-category-name');
-
-                // Dapatkan elemen form dan input di dalam modal
-                const form = editModal.querySelector('#editCategoryForm');
-                const nameInput = editModal.querySelector('#editCategoryName');
-
-                // Perbarui action form dengan ID kategori yang sesuai
-                form.action = `/product-category/${categoryId}`; 
-                // Isi input dengan nama kategori
-                nameInput.value = categoryName;
-            });
-        });
+        // Perbarui URL form sesuai dengan rute 'admin-products/{product}'
+        modalForm.action = `/admin-products/${categoryId}`;
+        
+        // Masukkan nama kategori saat ini ke dalam input
+        modalInput.value = categoryName;
+    });
+});
     </script>
 </x-mainlayout>

@@ -12,7 +12,9 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        $categories = ProductCategory::withCount('products')->paginate(5);
+        $categories = ProductCategory::withCount('products')
+        ->withSum('products','price')
+        ->paginate(5);
         return view('admin.product-category.index', compact('categories'));
     }
 
@@ -51,10 +53,28 @@ class ProductCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+public function update(Request $request, ProductCategory $product)
+{
+    // Validasi permintaan. Gunakan ID kategori yang terikat untuk mengabaikan dirinya sendiri
+    $request->validate([
+        'name' => [
+            'required',
+            'string',
+            'max:255',
+            'unique:product_categories,name,' . $product->id
+        ],
+    ], [
+        'name.required' => 'Nama kategori wajib diisi.',
+        'name.unique' => 'Nama kategori sudah ada.'
+    ]);
+
+    // Perbarui nama kategori
+    $product->name = $request->name;
+    $product->save();
+
+    // Kembali ke halaman sebelumnya dengan pesan sukses
+    return back()->with('success', 'Kategori berhasil diperbarui!');
+}
 
     /**
      * Remove the specified resource from storage.
