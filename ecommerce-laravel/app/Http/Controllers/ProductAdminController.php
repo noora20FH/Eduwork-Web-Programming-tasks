@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductAdminController extends Controller
 {
@@ -31,7 +33,39 @@ class ProductAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'group' => 'required|string|max:255',
+            'category_id' => 'required|exists:product_categories,id',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'image' => 'required|image|max:2048|mimes:jpeg,png,jpg,webp',
+            'description' => 'nullable|string',
+            'isNew' => 'nullable',
+        ]);
+
+        try {
+            // Menggunakan Storage facade untuk menyimpan gambar
+            $imageName = uniqid() . '.' . $request->image->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('image', $request->file('image'), $imageName);
+
+            // Membuat produk baru
+            $product = new Product();
+            $product->name = $validatedData['name'];
+            $product->group = $validatedData['group'];
+            $product->product_category_id = $validatedData['category_id'];
+            $product->price = $validatedData['price'];
+            $product->stock = $validatedData['stock'];
+            $product->description = $validatedData['description'];
+            $product->image = $imageName;
+            $product->isNew = $request->has('isNew') ? true : false;
+            $product->save();
+
+            return redirect()->route('admin-products.index')->with('success', 'Produk berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan produk: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -60,29 +94,51 @@ class ProductAdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+public function update(Request $request, Product $product)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'group' => 'nullable|string|max:255',
-            'product_category_id' => 'required|exists:product_categories,id',
+            'group' => 'required|string|max:255',
+            'category_id' => 'required|exists:product_categories,id',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,webp',
             'description' => 'nullable|string',
+            'isNew' => 'nullable',
         ]);
 
-        // Handle file upload if a new image is provided
-        if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('image'), $imageName);
-            $validatedData['image'] = $imageName;
+        try {
+            if ($request->hasFile('image')) {
+                // Hapus gambar lama dari storage jika ada
+                if ($product->image && Storage::disk('public')->exists('image/' . $product->image)) {
+                    Storage::disk('public')->delete('image/' . $product->image);
+                }
+
+                // Unggah gambar baru ke storage
+                $imageName = uniqid() . '.' . $request->image->getClientOriginalExtension();
+                Storage::disk('public')->putFileAs('image', $request->file('image'), $imageName);
+                $validatedData['image'] = $imageName;
+            } else {
+                // Jika tidak ada gambar baru, pertahankan gambar lama
+                $validatedData['image'] = $product->image;
+            }
+
+            // Perbarui data produk
+            $product->name = $validatedData['name'];
+            $product->group = $validatedData['group'];
+            $product->product_category_id = $validatedData['category_id'];
+            $product->price = $validatedData['price'];
+            $product->stock = $validatedData['stock'];
+            $product->description = $validatedData['description'];
+            $product->isNew = $request->has('isNew') ? true : false;
+            $product->image = $validatedData['image'];
+
+            $product->save();
+
+            return redirect()->route('admin-products.index')->with('success', 'Produk berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui produk: ' . $e->getMessage());
         }
-
-        // Update the product with validated data
-        $product->update($validatedData);
-
-        return redirect()->route('admin-products.index')->with('success', 'Produk berhasil diperbarui!');
     }
 
     /**
@@ -92,6 +148,6 @@ class ProductAdminController extends Controller
     {
          $product->delete();
 
-        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus!');
+        return redirect()->route('admin-products.index')->with('success', 'Produk berhasil dihapus!');
     }
 }

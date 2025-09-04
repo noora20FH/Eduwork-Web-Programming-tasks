@@ -30,25 +30,9 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-
-
-// Rute untuk halaman utama
-// Route::get('/customer-home', function () {
-//     return view('home');
-// })->name('customer-home');
-
 Route::get('/', function () {
     return view('home');
 })->name('home');
-// Route::get('/home', function () {
-//     return view('home');
-// })->name('home');
-// Rute resource untuk Product. Ini otomatis membuat rute untuk:
-// GET    /products                -> index  (menampilkan daftar semua produk)
-// GET    /products/{product}      -> show   (menampilkan detail satu produk)
-// POST   /products                -> store
-// PUT/PATCH /products/{product}   -> update
-// DELETE /products/{product}      -> destroy
 Route::resource('products', ProductController::class);
 
 

@@ -1,7 +1,6 @@
 <x-mainlayout title="K-Pop Mart">
 
-
-
+<x-statusInfo />
 
     <main class="container my-5">
         <h1 class="mb-4">Daftar Produk</h1>
@@ -33,7 +32,7 @@
                             <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                             <td>{{ $product->stock }}</td>
                             <td>
-                                <img src="{{ $product->image ?? 'https://via.placeholder.com/50' }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px;">
+                                <img src="{{ asset('storage/image/' . $product->image) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px;">
                             </td>
                             <td>{{ Str::limit($product->description, 50) }}</td>
                             <td class="d-flex gap-2">
