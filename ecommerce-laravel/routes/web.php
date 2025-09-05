@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LandingPageController; 
 use App\Models\Product;
 use App\Models\Authentication;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -30,9 +31,7 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [LandingPageController::class,'index'])->name('home');
 Route::resource('products', ProductController::class);
 
 

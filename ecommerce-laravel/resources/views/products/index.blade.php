@@ -62,7 +62,7 @@
             @forelse ($products as $product)
             <div class="col">
                 <div class="card card-product h-100 shadow-sm">
-                    <img src="{{ $product->image ?? 'https://via.placeholder.com/400x400/CCCCCC?text=No+Image' }}" class="card-img-top" alt="{{ $product->name }}">
+                    <img src="{{ asset('storage/image/' . $product->image) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 500px;">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text">{{ Str::limit($product->description, 50) }}</p>

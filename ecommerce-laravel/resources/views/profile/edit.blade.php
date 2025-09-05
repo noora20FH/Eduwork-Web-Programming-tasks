@@ -1,29 +1,47 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
+<x-mainlayout title="Edit Profile">
+    <div class="container py-5">
+        
+        <div class="row g-4 justify-content-center">
+            
+            <!-- Update Profile Information Card -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-light">
+                        <h4 class="card-title mb-0">Informasi Profil</h4>
+                        
+                    </div>
+                    <div class="card-body">
+                        @include('profile.partials.update-profile-information-form')
+                    </div>
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
+            <!-- Update Password Card -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-light">
+                        <h4 class="card-title mb-0">Perbarui Kata Sandi</h4>
+                        
+                    </div>
+                    <div class="card-body">
+                        @include('profile.partials.update-password-form')
+                    </div>
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
+            <!-- Delete Account Card -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-danger text-white">
+                        <h4 class="card-title mb-0">Hapus Akun</h4>
+                        
+                    </div>
+                    <div class="card-body">
+                        @include('profile.partials.delete-user-form')
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
-</x-app-layout>
+</x-mainlayout>

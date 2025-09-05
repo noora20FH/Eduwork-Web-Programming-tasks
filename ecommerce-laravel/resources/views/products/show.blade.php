@@ -10,10 +10,10 @@
         <div class="row">
             <div class="col-md-6 mb-4">
                 <div class="card p-3">
-                    <img id="mainProductImage" src="{{ $product->image ?? 'https://via.placeholder.com/600x600/9370DB/FFFFFF?text=No+Image' }}" class="img-fluid product-image-main rounded" alt="{{ $product->name }}">
+                    <img id="mainProductImage" src="{{ asset('storage/image/' . $product->image) }}" class="img-fluid product-image-main rounded" alt="{{ $product->name }}">
                     <div class="d-flex flex-row mt-3 justify-content-center">
                         @if($product->image)
-                        <img src="{{ $product->image }}" class="product-thumbnail me-2 rounded active" alt="{{ $product->name }}" onclick="document.getElementById('mainProductImage').src=this.src">
+                        <img src="{{ asset('storage/image/' . $product->image) }}" class="product-thumbnail me-2 rounded active" alt="{{ $product->name }}" onclick="document.getElementById('mainProductImage').src=this.src">
                         @endif
                     </div>
                 </div>

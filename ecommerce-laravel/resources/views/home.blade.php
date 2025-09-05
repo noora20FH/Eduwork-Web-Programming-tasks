@@ -9,26 +9,14 @@
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active" style="background-image: url('https://via.placeholder.com/1920x600/7B68EE/FFFFFF?text=MERCHANDISE+TERBARU'); background-size: cover; background-position: center; height: 500px;">
-                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
-                    <h5 class="display-4 fw-bold text-white">Album Terbaru dari Idola Favoritmu</h5>
-                    <p class="lead text-white-50">Dapatkan album terbaru dengan photocard eksklusif!</p>
-                    <a href="{{route('products.index')}}" class="btn btn-kpop btn-lg mt-3">Belanja Sekarang</a>
-                </div>
+            <div class="carousel-item active" style="background-image: url('/image/carousel1.png'); background-size: cover; background-position: center; height: 500px;">
+                
             </div>
-            <div class="carousel-item" style="background-image: url('https://via.placeholder.com/1920x600/FFC107/FFFFFF?text=PROMO+LIGHTSTICK'); background-size: cover; background-position: center; height: 500px;">
-                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
-                    <h5 class="display-4 fw-bold text-black">Promo Spesial Lightstick</h5>
-                    <p class="lead text-black-50">Siapkan dirimu untuk konser dengan lightstick resmi!</p>
-                    <a href="{{route('products.index')}}" class="btn btn-kpop btn-lg mt-3">Lihat Promo</a>
-                </div>
+            <div class="carousel-item" style="background-image: url('/image/carousel2.png'); background-size: cover; background-position: center; height: 500px;">
+
             </div>
-            <div class="carousel-item" style="background-image: url('https://via.placeholder.com/1920x600/4B0082/FFFFFF?text=OFFICIAL+APPAREL'); background-size: cover; background-position: center; height: 500px;">
-                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
-                    <h5 class="display-4 fw-bold text-white">Official Apparel Group Idol</h5>
-                    <p class="lead text-white-50">Tampil keren dengan hoodie dan t-shirt resmi!</p>
-                    <a href="#" class="btn btn-kpop btn-lg mt-3">Belanja Sekarang</a>
-                </div>
+            <div class="carousel-item" style="background-image: url('/image/carousel3.png'); background-size: cover; background-position: center; height: 500px;">
+
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -43,21 +31,54 @@
 
     <main class="container my-5">
 
-        <!-- Bagian Filter Kategori -->
-        <h2 class="text-center mb-4">Kategori Pilihan</h2>
-        <div id="filter-buttons" class="d-flex flex-wrap justify-content-center gap-3 mb-5">
-            <!-- Tombol grup akan dibuat secara dinamis di sini oleh home.js -->
-        </div>
 
-        <!-- Bagian Produk yang Difilter -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 id="product-section-title" class="fw-bold text-dark">Produk Terbaru</h2>
-            <a href="{{route('products.index')}}" class="link-primary">lihat semua</a>
-        </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5" id="productList">
-            <!-- Produk akan dimuat di sini oleh JavaScript -->
-        </div>
+        
+            <!-- Bagian Filter Kategori -->
+            <h2 class="text-center mb-4">K-Pop Grup</h2>
+            <div id="filter-buttons" class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+                {{-- Tombol "Semua" --}}
+                <a href="{{ route('home') }}" class="btn rounded-pill px-4 filter-btn {{ request('group') == null ? 'active btn-primary' : 'btn-outline-primary' }}">Semua</a>
 
+                {{-- Loop untuk tombol grup dinamis --}}
+                @foreach($groups as $group)
+                <a href="{{ route('home', ['group' => $group]) }}" class="btn rounded-pill px-4 filter-btn {{ request('group') == $group ? 'active btn-primary' : 'btn-outline-primary' }}">{{ $group }}</a>
+                @endforeach
+            </div>
+
+            <!-- Bagian Produk yang Difilter -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 id="product-section-title" class="fw-bold text-dark">
+                    @if(request('group'))
+                    Produk {{ request('group') }}
+                    @else
+                    Produk Terbaru
+                    @endif
+                </h2>
+                <a href="{{ route('products.index') }}" class="link-primary">lihat semua</a>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+                @forelse ($products as $product)
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ asset('storage/image/' . $product->image) }}" alt="{{ $product->name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text">{{ Str::limit($product->description, 50) }}</p>
+                            <p class="card-text"><b>Stok: {{ $product->stock }}</b></p>
+                            <h4 class="fw-bold mt-auto" style="color: #7B68EE;">Rp {{ number_format($product->price, 0, ',', '.') }}</h4>
+                            <div class="d-grid mt-2">
+                                <a href="{{ route('products.show', $product->id) }}" class="btn" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Lihat Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="col-12 text-center mt-5">
+                    <p class="lead text-muted">Tidak ada produk yang ditemukan untuk grup ini.</p>
+                </div>
+                @endforelse
+            </div>
+        
 
 
 

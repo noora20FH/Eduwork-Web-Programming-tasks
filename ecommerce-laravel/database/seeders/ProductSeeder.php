@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'price' => 350000,
                 'stock' => 50,
-                'image' => "https://via.placeholder.com/400x400/9370DB/FFFFFF?text=Album+Seventeen",
+                'image' => "public/image/album.jpg",
                 'description' => "Album lengkap dengan photocard dan poster.",
                 'isNew' => true
             ],

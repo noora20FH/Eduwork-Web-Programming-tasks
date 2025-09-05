@@ -19,8 +19,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'address', // Menambahkan kolom address
         'photo_profile',
-        'status', // Menambahkan kolom status
+        'role', // Menambahkan kolom status
     ];
 
     /**
@@ -42,5 +43,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    
 }

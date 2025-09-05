@@ -30,7 +30,7 @@ class UserController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
                 'photo_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'status' => 'required|in:customer,admin', // Validasi status
+                'role' => 'required|in:customer,admin', // Validasi status
             ]);
 
             $photoPath = null;
