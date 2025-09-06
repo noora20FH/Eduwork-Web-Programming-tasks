@@ -33,6 +33,7 @@ Route::get('/register', function () {
 
 Route::get('/', [LandingPageController::class,'index'])->name('home');
 Route::resource('products', ProductController::class);
+Route::post('/products/{product}/click', [ProductController::class, 'recordClick'])->name('products.click');
 
 
 //laravel breeze default

@@ -32,7 +32,7 @@
                             <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                             <td>{{ $product->stock }}</td>
                             <td>
-                                <img src="{{ asset('storage/image/' . $product->image) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px;">
+                                <img src="{{ asset('storage/image/' . $product->image) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 150px;">
                             </td>
                             <td>{{ Str::limit($product->description, 50) }}</td>
                             <td class="d-flex gap-2">

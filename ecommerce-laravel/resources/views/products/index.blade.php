@@ -69,7 +69,7 @@
                         <p class="card-text"><b>Stock: {{$product->stock}}</b></p>
                         <h4 class="fw-bold mt-auto" style="color: #FFC107;">Rp {{ number_format($product->price, 0, ',', '.') }}</h4>
                         <div class="d-grid mt-2">
-                            <a href="{{ route('products.show', $product->id) }}" class="btn" style="background-color: #7B68EE; border-color: #7B68EE; color: white;">Lihat Detail</a>
+                            <x-detailsProductButton :product-id="$product->id" />
                         </div>
                     </div>
                 </div>

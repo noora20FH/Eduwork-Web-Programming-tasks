@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -119,5 +120,23 @@ class ProductController extends Controller
 
         // Redirect kembali dengan pesan sukses
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus!');
+    }
+    public function recordClick(Product $product, Request $request): Response
+    {
+        // Mendapatkan array ID produk yang sudah diklik dari sesi
+        $clickedProducts = $request->session()->get('clicked_products', []);
+
+        // Memeriksa apakah ID produk saat ini sudah ada di sesi
+        if (!in_array($product->id, $clickedProducts)) {
+            // Jika belum ada, tambahkan 1 ke click_count di database
+            $product->increment('click_count');
+
+            // Tambahkan ID produk ke array di sesi
+            $clickedProducts[] = $product->id;
+            $request->session()->put('clicked_products', $clickedProducts);
+        }
+
+        // Kembalikan respons 204 (tanpa konten)
+        return response()->noContent();
     }
 }

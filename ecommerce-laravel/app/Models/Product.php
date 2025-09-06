@@ -18,7 +18,9 @@ class Product extends Model
         'price',
         'stock',
         'image',
-        'description'
+        'description',
+        'isNew',
+        'click_count',
     ];
     /**
      * Dapatkan pesanan (order) yang memiliki item pesanan ini.
