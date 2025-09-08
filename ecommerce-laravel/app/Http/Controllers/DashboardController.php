@@ -10,10 +10,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalProducts = \App\Models\Product::count();
-        $totalCategories = \App\Models\ProductCategory::count();
-        $totalStocks = \App\Models\Product::sum('stock');
-        $totalClicks = 5432;
+        $totalProducts = Product::count();
+        $totalCategories = ProductCategory::count();
+        $totalStocks = Product::sum('stock');
+        $totalClicks = Product::sum('click_count');
         $data =[
             ['title'=>'Jumlah Produk','icon'=>'bi-box-seam','value'=>$totalProducts,'description'=>'Produk aktif','bg_color'=>'linear-gradient(135deg, #2193b0 0%, #6dd5ed 60%, #1e3c72 100%)'],
             ['title'=>'Jumlah Kategori','icon'=>'bi-tags','value'=>$totalCategories,'description'=>'Kategori tersedia','bg_color'=>'linear-gradient(135deg,  #fff700 0%, #ffe066 60%, #ffd700 100%)'],
@@ -22,4 +22,5 @@ class DashboardController extends Controller
         ];
         return view('admin.dashboard',compact('data'));
     }
+
 }

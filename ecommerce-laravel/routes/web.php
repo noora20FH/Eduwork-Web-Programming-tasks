@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
@@ -7,7 +8,7 @@ use App\Http\Controllers\ProductAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LandingPageController; 
+use App\Http\Controllers\LandingPageController;
 use App\Models\Product;
 use App\Models\Authentication;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -31,7 +32,7 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-Route::get('/', [LandingPageController::class,'index'])->name('home');
+Route::get('/', [LandingPageController::class, 'index'])->name('home');
 Route::resource('products', ProductController::class);
 Route::post('/products/{product}/click', [ProductController::class, 'recordClick'])->name('products.click');
 
@@ -53,17 +54,17 @@ Route::middleware('auth')->group(function () {
         Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
 
-        // Rute untuk halaman statis lainnya
-        Route::get('/cart', function () {
-            return view('cart');
-        })->name('cart');
+        Route::resource('cart', CartController::class);
 
         Route::get('/checkout', function () {
             return view('checkout');
         })->name('checkout');
     });
-Route::resource('profile', ProfileController::class)->only([
-    'edit', 'update', 'destroy']);
+    Route::resource('profile', ProfileController::class)->only([
+        'edit',
+        'update',
+        'destroy'
+    ]);
 });
 
 require __DIR__ . '/auth.php';

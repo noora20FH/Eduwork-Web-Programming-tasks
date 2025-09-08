@@ -26,16 +26,30 @@
 
                 <p>{{ $product->description }}</p>
 
-                <div class="d-grid gap-2">
-                    <a href="{{ route('cart')}}" class="btn btn-kpop btn-lg">
-                        <i class="bi bi-cart-plus me-2"></i> Tambah ke Keranjang
-                    </a>
+                {{-- FORMULIR INI AKAN MENGIRIM DATA PRODUK KE KERANJANG --}}
+                <form action="{{ route('cart.store') }}" method="POST">
+                    @csrf
+                    {{-- Input tersembunyi untuk ID produk --}}
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Jumlah</label>
+                        <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="{{ $product->stock }}">
+                    </div>
 
-                    <a href="{{ route('checkout')}}" class="btn btn-outline-dark btn-lg">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-kpop btn-lg" {{ $product->stock === 0 ? 'disabled' : '' }}>
+                            <i class="bi bi-cart-plus me-2"></i> Tambah ke Keranjang
+                        </button>
+                    </div>
+                </form>
+
+                {{-- Tautan "Beli Sekarang" tetap menggunakan <a> jika diarahkan ke halaman checkout --}}
+                <div class="d-grid gap-2 mt-2">
+                     <a href="{{ route('checkout')}}" class="btn btn-outline-dark btn-lg">
                         Beli Sekarang
                     </a>
                 </div>
-
 
                 <hr class="my-4">
 

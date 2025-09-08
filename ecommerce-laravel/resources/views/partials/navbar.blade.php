@@ -42,7 +42,7 @@
             @auth
             <div class="d-flex gap-2">
                 @if(Auth::user()->role === 'customer')
-                <a href="{{ route('cart') }}" class="btn btn-outline-light">
+                <a href="{{ route('cart.index') }}" class="btn btn-outline-light">
                     <i class="bi bi-cart"></i>
                 </a>
                 @endif

@@ -4,7 +4,7 @@
         @php
         $items = [
         ['label' => 'Produk', 'url' => route('products.index')],
-        ['label' => 'Cart', 'url' => route('cart')],
+        ['label' => 'Cart', 'url' => route('cart.index')],
         ['label' => 'Checkout', 'url' => '#'],
         ];
         @endphp
