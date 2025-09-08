@@ -54,7 +54,10 @@ Route::middleware('auth')->group(function () {
         Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
 
-        Route::resource('cart', CartController::class);
+        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::put('/cart', [CartController::class, 'update'])->name('cart.update'); // Diubah: tidak lagi memerlukan parameter {id} di URI
+    Route::delete('/cart/destroy-selected', [CartController::class, 'destroySelected'])->name('cart.destroy_selected');
 
         Route::get('/checkout', function () {
             return view('checkout');
