@@ -46,7 +46,7 @@
 
                 {{-- Tautan "Beli Sekarang" tetap menggunakan <a> jika diarahkan ke halaman checkout --}}
                 <div class="d-grid gap-2 mt-2">
-                     <a href="{{ route('checkout')}}" class="btn btn-outline-dark btn-lg">
+                     <a href="#" class="btn btn-outline-dark btn-lg">
                         Beli Sekarang
                     </a>
                 </div>

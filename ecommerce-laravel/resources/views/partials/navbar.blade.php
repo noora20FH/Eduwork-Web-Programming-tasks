@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">Produk</a>
                 </li>
+                <li>
+                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('checkout.index') }}">Checkout</a>
+                </li>
                 <li class="nav-item">
                     <!-- Untuk link anchor, kita cek URL. -->
                     <a class="nav-link {{ Request::is('/') && request()->url() . '#faq-section' == url('/#faq-section') ? 'active' : '' }}" href="{{ url('/#faq-section') }}">FAQ</a>

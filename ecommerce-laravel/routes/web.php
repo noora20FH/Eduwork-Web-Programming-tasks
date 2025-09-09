@@ -12,6 +12,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Models\Product;
 use App\Models\Authentication;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,9 +60,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/cart', [CartController::class, 'update'])->name('cart.update'); // Diubah: tidak lagi memerlukan parameter {id} di URI
     Route::delete('/cart/destroy-selected', [CartController::class, 'destroySelected'])->name('cart.destroy_selected');
 
-        Route::get('/checkout', function () {
-            return view('checkout');
-        })->name('checkout');
+        // Route::get('/checkout',[CheckoutController::class,'singleItemCheckout'])->name('checkout.singleItem');
+        Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+        Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+        Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+        Route::post('/checkout/single-item/{id}', [CheckoutController::class, 'singleItemCheckout'])->name('checkout.singleItem');
+        Route::get('/checkout/show', [CheckoutController::class, 'show'])->name('checkout.show');
     });
     Route::resource('profile', ProfileController::class)->only([
         'edit',
