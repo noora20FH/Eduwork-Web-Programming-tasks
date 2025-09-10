@@ -18,9 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">Produk</a>
                 </li>
-                <li>
-                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('checkout.index') }}">Checkout</a>
-                </li>
+
                 <li class="nav-item">
                     <!-- Untuk link anchor, kita cek URL. -->
                     <a class="nav-link {{ Request::is('/') && request()->url() . '#faq-section' == url('/#faq-section') ? 'active' : '' }}" href="{{ url('/#faq-section') }}">FAQ</a>
@@ -28,6 +26,9 @@
                 <li class="nav-item">
                     <!-- Untuk link anchor, kita cek URL. -->
                     <a class="nav-link {{ Request::is('/') && request()->url() . '#about-us' == url('/#about-us') ? 'active' : '' }}" href="{{ url('/#about-us') }}">Tentang Kami</a>
+                </li>
+                <li>
+                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('checkout.index') }}">Checkout</a>
                 </li>
                 @endif
                 @if(Auth::check() && Auth::user()->role === 'admin')
@@ -56,7 +57,22 @@
                     <ul class="dropdown-menu dropdown-menu-end p-2">
                         <!-- Informasi Profil Dinamis -->
                         <li class="profile-info d-flex align-items-center mb-2 px-3">
-                            <img src="https://via.placeholder.com/48" alt="Profile Photo" class="profile-photo rounded-circle me-2">
+                            @php
+                            $extensions = ['png', 'jpg', 'jpeg', 'webp'];
+                            $photoFound = false;
+                            @endphp
+
+                            @foreach($extensions as $ext)
+                            @if(file_exists(public_path('storage/profiles/' . Auth::user()->id . '.' . $ext)))
+                            <img src="{{ asset('storage/profiles/' . Auth::user()->id . '.' . $ext) }}" alt="Profile Photo" class="profile-photo rounded-circle me-2">
+                            @php $photoFound = true; break; @endphp
+                            @endif
+                            @endforeach
+
+                            @if(!$photoFound)
+                            {{-- Tampilkan gambar default jika tidak ada yang ditemukan --}}
+                            <img src="{{ asset('image/logo.png') }}" alt="Default Profile Photo" class="profile-photo rounded-circle me-2" style="width: 40px">
+                            @endif
                             <div>
                                 <h6 class="mb-0">{{ Auth::user()->name }}</h6>
                                 <p class="text-muted mb-0" style="font-size: 0.875em;">{{ Auth::user()->email }}</p>
