@@ -24,34 +24,40 @@
                     </div>
                 </div>
 
+                <!-- Cari Tujuan Pengiriman -->
+                <!-- <div class="card shadow-sm p-4 mb-4">
+                    @livewire('princing-check')
+
+                </div> -->
+
                 <!-- Detail Pesanan -->
                 <div class="card shadow-sm p-4 mb-4">
                     <h5 class="mb-4">Detail Pesanan</h5>
                     <div class="list-group list-group-flush">
                         @if ($checkout && $checkout->checkoutItems)
-                            @forelse ($checkout->checkoutItems as $item)
-                            <div class="list-group-item card-product-detail d-flex align-items-center justify-content-between py-3">
-                                <div class="d-flex align-items-center">
-                                    <img src="{{ asset('storage/image/' . $item->product->image) }}" alt="{{ $item->product->name }}" class="me-3" width="80px" height="80px">
-                                    <div>
-                                        <h6 class="mb-0">{{ $item->product->name }}</h6>
-                                        <small class="text-muted">Harga satuan: Rp {{ number_format($item->price, 0, ',', '.') }}</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <span class="me-4 text-muted">{{ $item->quantity }}x</span>
-                                    <span class="fw-bold">Rp {{ number_format($item->price * $item->quantity, 0, ',', '.') }}</span>
+                        @forelse ($checkout->checkoutItems as $item)
+                        <div class="list-group-item card-product-detail d-flex align-items-center justify-content-between py-3">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('storage/image/' . $item->product->image) }}" alt="{{ $item->product->name }}" class="me-3" width="80px" height="80px">
+                                <div>
+                                    <h6 class="mb-0">{{ $item->product->name }}</h6>
+                                    <small class="text-muted">Harga satuan: Rp {{ number_format($item->price, 0, ',', '.') }}</small>
                                 </div>
                             </div>
-                            @empty
-                            <div class="list-group-item">
-                                Tidak ada item dalam pesanan ini.
+                            <div class="d-flex align-items-center">
+                                <span class="me-4 text-muted">{{ $item->quantity }}x</span>
+                                <span class="fw-bold">Rp {{ number_format($item->price * $item->quantity, 0, ',', '.') }}</span>
                             </div>
-                            @endforelse
+                        </div>
+                        @empty
+                        <div class="list-group-item">
+                            Tidak ada item dalam pesanan ini.
+                        </div>
+                        @endforelse
                         @else
-                            <div class="list-group-item">
-                                Data pesanan tidak ditemukan.
-                            </div>
+                        <div class="list-group-item">
+                            Data pesanan tidak ditemukan.
+                        </div>
                         @endif
                     </div>
                 </div>
