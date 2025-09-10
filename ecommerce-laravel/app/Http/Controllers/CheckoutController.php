@@ -8,6 +8,7 @@ use App\Models\Checkout;
 use App\Models\CheckoutItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class CheckoutController extends Controller
 {
@@ -17,9 +18,9 @@ class CheckoutController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
-public function index()
+    public function index()
     {
-       // 1. Ambil data user yang sedang login
+        // 1. Ambil data user yang sedang login
         $user = Auth::user();
 
         // 2. Ambil semua item keranjang untuk user yang sedang login
@@ -28,9 +29,9 @@ public function index()
                 $query->where('user_id', $user->id);
             })
             ->get();
-        
+
         // 3. Hitung ringkasan total pembayaran dari checkout_items.
-        $subtotal = $checkoutItems->sum(function($item) {
+        $subtotal = $checkoutItems->sum(function ($item) {
             return $item->price * $item->quantity;
         });
 
@@ -84,7 +85,7 @@ public function index()
         }
 
         // Hitung total harga
-        $subtotal = $cartItems->sum(function($item) {
+        $subtotal = $cartItems->sum(function ($item) {
             return $item->product->price * $item->quantity;
         });
 
@@ -168,32 +169,57 @@ public function index()
             return redirect()->route('cart.index')->with('error', 'Gagal memproses checkout. Silakan coba lagi.');
         }
     }
-    public function show($id)
+    public function processCheckout(): RedirectResponse
     {
-        // Temukan data checkout berdasarkan ID dan muat relasi yang diperlukan.
-        // `with(['user', 'checkoutItems.product'])` akan memuat data pengguna,
-        // item checkout, dan produk terkait.
-        $checkout = Checkout::with(['user', 'checkoutItems.product'])->findOrFail($id);
-        
-        // Hitung subtotal, pajak, dan biaya pengiriman berdasarkan checkout_items.
-        // Ini memastikan ringkasan selalu akurat, terlepas dari data di tabel 'checkouts'.
-        $subtotal = $checkout->checkoutItems->sum(function($item) {
-            return $item->price * $item->quantity;
-        });
+        // Ambil data user yang sedang login.
+        $user = Auth::user();
 
-        // Biaya statis seperti yang diminta
-        $shipping_cost = 10000;
-        $tax_rate = 0.1;
+        // Ambil semua item yang telah di-checkout oleh user ini.
+        $checkoutItems = CheckoutItem::with('product')
+            ->whereHas('checkout', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->get();
 
-        // Perhitungan ulang total
-        $total_amount = $subtotal + $shipping_cost + ($subtotal * $tax_rate);
+        // Cek apakah ada item untuk di-checkout.
+        if ($checkoutItems->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Tidak ada item untuk diproses checkout.');
+        }
 
-        return view('checkout.index', [
-            'checkout' => $checkout,
-            'subtotal' => $subtotal,
-            'shipping_cost' => $shipping_cost,
-            'tax' => $subtotal * $tax_rate,
-            'total_amount' => $total_amount,
-        ]);
+        // Hitung total dan buat pesan WhatsApp.
+        $subtotal = 0;
+        $orderMessage = "Halo, saya ingin memesan produk dari K-Pop Mart.\n\n"
+            . "Rincian Pesanan:\n";
+
+        foreach ($checkoutItems as $item) {
+            $itemTotal = $item->price * $item->quantity;
+            $subtotal += $itemTotal;
+            $orderMessage .= "• " . $item->product->name . " x " . $item->quantity . " = Rp " . number_format($itemTotal, 0, ',', '.') . "\n";
+        }
+
+        // Tambahkan biaya pengiriman, pajak, dan total akhir.
+        $shippingCost = 10000;
+        $taxRate = 0.1;
+        $taxAmount = $subtotal * $taxRate;
+        $finalTotal = $subtotal + $shippingCost + $taxAmount;
+
+        $orderMessage .= "\n----------------------------------\n"
+            . "Subtotal: Rp " . number_format($subtotal, 0, ',', '.') . "\n"
+            . "Biaya Pengiriman: Rp " . number_format($shippingCost, 0, ',', '.') . "\n"
+            . "Pajak (" . ($taxRate * 100) . "%): Rp " . number_format($taxAmount, 0, ',', '.') . "\n"
+            . "Total Pembayaran: Rp " . number_format($finalTotal, 0, ',', '.') . "\n\n"
+            . "Mohon info ketersediaan stok dan detail pembayaran. Terima kasih.";
+
+        // URL encode pesan.
+        $encodedMessage = urlencode($orderMessage);
+
+        // Nomor WhatsApp tujuan.
+        $phoneNumber = '6289513822017'; // Ganti dengan nomor WhatsApp bisnis Anda.
+
+        // Buat URL WhatsApp.
+        $whatsappUrl = "https://wa.me/{$phoneNumber}?text={$encodedMessage}";
+
+        // Arahkan pengguna ke URL tersebut.
+        return redirect()->away($whatsappUrl);
     }
 }

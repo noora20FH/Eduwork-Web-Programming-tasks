@@ -100,7 +100,7 @@
                     </ul>
                     <hr class="my-4">
                     <div class="d-grid gap-2">
-                        <a href="{{ route('orders.index')}}" class="btn btn-kpop btn-lg" type="button">Buat Pesanan</a>
+                        <a href="{{ route('checkout.process')}}" class="btn btn-kpop btn-lg" type="button">Buat Pesanan</a>
                     </div>
                 </div>
             </div>

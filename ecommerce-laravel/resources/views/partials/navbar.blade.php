@@ -72,7 +72,7 @@
                             </a>
                         </li>
                         @if(Auth::user()->role === 'customer')
-                        <li><a class="dropdown-item" href="{{ route('orders.index') }}"><i class="bi bi-box-seam me-2"></i>Orders</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-box-seam me-2"></i>Riwayat Pesanan</a></li>
                         @endif
                         <li>
                             <hr class="dropdown-divider">

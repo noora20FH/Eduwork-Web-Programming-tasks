@@ -51,21 +51,20 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware('customer')->group(function () {
 
-        Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
-        Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+        // Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+        // Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
 
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
-    Route::put('/cart', [CartController::class, 'update'])->name('cart.update'); // Diubah: tidak lagi memerlukan parameter {id} di URI
-    Route::delete('/cart/destroy-selected', [CartController::class, 'destroySelected'])->name('cart.destroy_selected');
+        Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+        Route::put('/cart', [CartController::class, 'update'])->name('cart.update'); // Diubah: tidak lagi memerlukan parameter {id} di URI
+        Route::delete('/cart/destroy-selected', [CartController::class, 'destroySelected'])->name('cart.destroy_selected');
 
         // Route::get('/checkout',[CheckoutController::class,'singleItemCheckout'])->name('checkout.singleItem');
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
         Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-        Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
         Route::post('/checkout/single-item/{id}', [CheckoutController::class, 'singleItemCheckout'])->name('checkout.singleItem');
-        Route::get('/checkout/show', [CheckoutController::class, 'show'])->name('checkout.show');
+        Route::get('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
     });
     Route::resource('profile', ProfileController::class)->only([
         'edit',
