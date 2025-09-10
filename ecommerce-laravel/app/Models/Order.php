@@ -13,7 +13,7 @@ class Order extends Model
         'user_id',
         'customer_name',
         'customer_phone',
-        'shipping_address',
+        'customer_address',
         'subtotal_amount',
         'shipping_fee',
         'payment_method',

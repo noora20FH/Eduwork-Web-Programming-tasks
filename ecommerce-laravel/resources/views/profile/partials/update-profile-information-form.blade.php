@@ -43,7 +43,11 @@
             </div>
             @endif
         </div>
-        
+        <div class="mb-3">
+            <x-input-label for="phone" :value="__('Phone')" class="form-label" />
+            <input id="phone" name="phone" type="tel" class="form-control" value="{{ old('phone', $user->phone) }}" required>
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
         <div class="mb-3">
             <x-input-label for="address" :value="__('Alamat')" class="form-label" />
             <textarea id="address" name="address" class="form-control" rows="3">{{ old('address', $user->address) }}</textarea>
@@ -55,10 +59,10 @@
             <input type="file" id="photo_profile" name="photo_profile" class="form-control" />
             <x-input-error class="mt-2" :messages="$errors->get('photo_profile')" />
             @if($user->photo_profile)
-                <div class="mt-2">
-                    {{-- Perbaikan: Perbaiki jalur gambar --}}
-                    <img src="{{ asset('storage/' . $user->photo_profile) }}" alt="Foto Profil" class="img-thumbnail" style="max-width: 150px;">
-                </div>
+            <div class="mt-2">
+                {{-- Perbaikan: Perbaiki jalur gambar --}}
+                <img src="{{ asset('storage/' . $user->photo_profile) }}" alt="Foto Profil" class="img-thumbnail" style="max-width: 150px;">
+            </div>
             @endif
         </div>
 
@@ -70,8 +74,7 @@
                 x-data="{ show: true }"
                 x-show="show"
                 x-transition
-                x-init="setTimeout(() => show = false, 2000)"
-            >
+                x-init="setTimeout(() => show = false, 2000)">
                 {{ __('Tersimpan.') }}
             </div>
             @endif

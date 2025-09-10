@@ -6,7 +6,7 @@
             @foreach($data as $item )
             <!-- Kartu Ringkasan Jumlah Produk -->
             <div class="col-md-6 col-lg-3">
-                <div class="card text-white shadow-sm h-100 rounded-3" style="background: {{$item['bg_color']}}">
+                <div class="card text-white shadow-sm h-100 rounded-3" style="background: white;">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="card-title fw-semibold text-uppercase">{{$item['title']}}</h5>

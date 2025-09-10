@@ -24,4 +24,8 @@ class Checkout extends Model
     {
         return $this->hasMany(CheckoutItem::class);
     }
+    public function checkoutItems()
+    {
+        return $this->hasMany(CheckoutItem::class);
+    }
 }

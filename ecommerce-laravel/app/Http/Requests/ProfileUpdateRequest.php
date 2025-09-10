@@ -20,6 +20,7 @@ class ProfileUpdateRequest extends FormRequest
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             'address' => ['nullable', 'string', 'max:500'], // Baris yang ditambahkan
             'photo_profile' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'phone' => ['string', 'nullable', 'max:15'],
         ];
     }
 }

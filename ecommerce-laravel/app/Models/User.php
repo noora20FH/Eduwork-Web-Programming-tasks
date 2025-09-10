@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone', // Menambahkan kolom phone
         'address', // Menambahkan kolom address
         'photo_profile',
         'role', // Menambahkan kolom status

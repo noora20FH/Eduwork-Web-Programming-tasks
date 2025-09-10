@@ -19,8 +19,8 @@
                     <h5 class="mb-4">Informasi Pengiriman</h5>
                     <div class="mb-3">
                         <p class="mb-1"><strong>Nama Lengkap:</strong> {{ $checkout->user->name ?? 'N/A' }}</p>
-                        <p class="mb-1"><strong>Nomor HP:</strong> {{ $checkout->user->phone_number ?? 'N/A' }}</p>
-                        <p class="mb-0"><strong>Alamat Lengkap:</strong> {{ $checkout->user->address ?? 'N/A' }}</p>
+                        <p class="mb-1"><strong>Nomor HP:</strong> {{ $checkout->user->phone ?? 'N/A' }}</p>
+                        <p class="mb-0"><strong>Alamat Pengiriman:</strong> {{ $checkout->user->address ?? 'N/A' }}</p>
                     </div>
                 </div>
 

@@ -9,6 +9,8 @@ use App\Models\CheckoutItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Order;
+use App\Models\OrderItem;   
 
 class CheckoutController extends Controller
 {
@@ -174,27 +176,26 @@ class CheckoutController extends Controller
         // Ambil data user yang sedang login.
         $user = Auth::user();
 
-        // Ambil semua item yang telah di-checkout oleh user ini.
-        $checkoutItems = CheckoutItem::with('product')
-            ->whereHas('checkout', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })
-            ->get();
+        // Ambil semua entri 'checkout' yang ada untuk user ini.
+        $userCheckouts = Checkout::where('user_id', $user->id)->get();
 
-        // Cek apakah ada item untuk di-checkout.
-        if ($checkoutItems->isEmpty()) {
+        // Cek apakah ada entri checkout untuk diproses.
+        if ($userCheckouts->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Tidak ada item untuk diproses checkout.');
         }
 
-        // Hitung total dan buat pesan WhatsApp.
+        // Hitung total dan buat pesan WhatsApp dari semua item di semua checkout.
         $subtotal = 0;
         $orderMessage = "Halo, saya ingin memesan produk dari K-Pop Mart.\n\n"
             . "Rincian Pesanan:\n";
 
-        foreach ($checkoutItems as $item) {
-            $itemTotal = $item->price * $item->quantity;
-            $subtotal += $itemTotal;
-            $orderMessage .= "• " . $item->product->name . " x " . $item->quantity . " = Rp " . number_format($itemTotal, 0, ',', '.') . "\n";
+        foreach ($userCheckouts as $checkout) {
+            $checkoutItems = $checkout->checkoutItems()->with('product')->get();
+            foreach ($checkoutItems as $item) {
+                $itemTotal = $item->price * $item->quantity;
+                $subtotal += $itemTotal;
+                $orderMessage .= "• " . $item->product->name . " x " . $item->quantity . " = Rp " . number_format($itemTotal, 0, ',', '.') . "\n";
+            }
         }
 
         // Tambahkan biaya pengiriman, pajak, dan total akhir.
@@ -203,12 +204,49 @@ class CheckoutController extends Controller
         $taxAmount = $subtotal * $taxRate;
         $finalTotal = $subtotal + $shippingCost + $taxAmount;
 
+
+
+        // 3. Simpan info pesanan ke database (Order & OrderItem).
+        // Buat entri baru di tabel 'orders'.
+        $order = Order::create([
+            'user_id' => $user->id,
+            'customer_name' => $user->name,
+            'customer_phone' => $user->phone,
+            'customer_address' => $user->address,
+            'subtotal_amount' => $subtotal,
+            'shipping_fee' => $shippingCost,
+            'tax_amount' => $taxAmount,
+            'total_payment' => $finalTotal,
+            'payment_method' => 'WhatsApp',
+            'status' => 'pending'
+        ]);
+
+        // Simpan setiap item dari keranjang ke tabel 'order_items'.
+        foreach ($checkout->checkoutItems as $item) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity,
+                'price' => $item->price
+            ]);
+        }
+
         $orderMessage .= "\n----------------------------------\n"
             . "Subtotal: Rp " . number_format($subtotal, 0, ',', '.') . "\n"
             . "Biaya Pengiriman: Rp " . number_format($shippingCost, 0, ',', '.') . "\n"
             . "Pajak (" . ($taxRate * 100) . "%): Rp " . number_format($taxAmount, 0, ',', '.') . "\n"
             . "Total Pembayaran: Rp " . number_format($finalTotal, 0, ',', '.') . "\n\n"
             . "Mohon info ketersediaan stok dan detail pembayaran. Terima kasih.";
+
+        // --- Hapus semua item dari keranjang dan entri keranjangnya dari database ---
+        // Loop melalui setiap entri checkout yang dimiliki user dan hapus semua itemnya.
+        foreach ($userCheckouts as $checkout) {
+            $checkout->checkoutItems()->delete();
+        }
+
+        // Hapus semua entri checkout dari user ini.
+        Checkout::where('user_id', $user->id)->delete();
+        // --------------------------------------------------------------------------
 
         // URL encode pesan.
         $encodedMessage = urlencode($orderMessage);
