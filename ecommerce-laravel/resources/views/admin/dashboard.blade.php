@@ -6,7 +6,7 @@
             @foreach($data as $item )
             <!-- Kartu Ringkasan Jumlah Produk -->
             <div class="col-md-6 col-lg-3">
-                <div class="card text-white shadow-sm h-100 rounded-3" style="background: white;">
+                <div class="card text-white shadow-sm h-100 rounded-3" style="background:  {{$item['bg_color']}}">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="card-title fw-semibold text-uppercase">{{$item['title']}}</h5>
@@ -66,18 +66,46 @@
                             <table class="table table-hover align-middle">
                                 <thead class="table-light">
                                     <tr>
-                                        <th scope="col" class="cursor-pointer" onclick="sortTable(0)">ID <span id="sort-0">↕️</span></th>
-                                        <th scope="col" class="cursor-pointer" onclick="sortTable(1)">Tanggal <span id="sort-1">↕️</span></th>
-                                        <th scope="col" class="cursor-pointer" onclick="sortTable(2)">Pelanggan <span id="sort-2">↕️</span></th>
-                                        <th scope="col" class="cursor-pointer" onclick="sortTable(3)">Jumlah <span id="sort-3">↕️</span></th>
-                                        <th scope="col" class="cursor-pointer" onclick="sortTable(4)">Status <span id="sort-4">↕️</span></th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Pelanggan</th>
+                                        <th scope="col">Jumlah</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tableBody">
-                                    <!-- Data transaksi akan dirender di sini oleh JavaScript -->
+                                <tbody>
+                                    {{-- Loop untuk menampilkan data dari controller --}}
+                                    @foreach($transactions as $order)
+                                    <tr>
+                                        <td>#{{ $order->id }}</td>
+                                        <td>{{ $order->created_at->format('d M, Y') }}</td>
+                                        <td>{{ $order->user->name ?? 'User Dihapus' }}</td>
+                                        <td>Rp{{ number_format($order->total_payment, 0, ',', '.') }}</td>
+                                        <td>
+                                            @php
+                                            $statusClass = [
+                                            'pending' => 'warning',
+                                            'completed' => 'success',
+                                            'failed' => 'danger',
+                                            ][$order->status] ?? 'secondary';
+                                            @endphp
+                                            <span class="badge bg-{{ $statusClass }} text-dark">{{ ucfirst($order->status) }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            {{ $transactions->links() }}
                         </div>
 
                         <nav class="d-flex justify-content-between align-items-center mt-3" aria-label="Tabel navigasi">
@@ -105,8 +133,9 @@
             </div>
         </div>
 
+
     </main>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
     <style>
@@ -123,8 +152,7 @@
                 type: 'line',
                 data: {
                     labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Transaksi',
                             data: [12, 19, 3, 5, 20, 3, 10],
                             borderColor: 'rgb(59, 130, 246)',
@@ -154,163 +182,137 @@
             });
         });
     </script>
-    
-    {{-- Script untuk tabel transaksi --}}
+
+    <x-order-details-modal />
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Static transaction data
-            const transactionsData = [
-                { id: '#1001', date: 'Dec 15, 2023', customer: 'John Doe', amount: 125.99, status: 'completed' },
-                { id: '#1002', date: 'Dec 14, 2023', customer: 'Jane Smith', amount: 89.50, status: 'pending' },
-                { id: '#1003', date: 'Dec 14, 2023', customer: 'Mike Johnson', amount: 245.00, status: 'completed' },
-                { id: '#1004', date: 'Dec 13, 2023', customer: 'Sarah Wilson', amount: 67.25, status: 'failed' },
-                { id: '#1005', date: 'Dec 13, 2023', customer: 'David Brown', amount: 156.80, status: 'completed' },
-                { id: '#1006', date: 'Dec 12, 2023', customer: 'Emma Davis', amount: 199.99, status: 'completed' },
-                { id: '#1007', date: 'Dec 12, 2023', customer: 'Alex Chen', amount: 78.45, status: 'pending' },
-                { id: '#1008', date: 'Dec 11, 2023', customer: 'Lisa Wang', amount: 234.50, status: 'completed' },
-                { id: '#1009', date: 'Dec 11, 2023', customer: 'Tom Miller', amount: 45.25, status: 'failed' },
-                { id: '#1010', date: 'Dec 10, 2023', customer: 'Kate Johnson', amount: 187.60, status: 'completed' }
-            ];
+    document.addEventListener('DOMContentLoaded', function() {
 
-            let currentPage = 1;
-            let perPage = 10;
-            let sortColumn = 0;
-            let sortDirection = 'asc';
-            let filteredData = [...transactionsData];
+        const editStatusModal = document.getElementById('editStatusModal');
+        const editStatusForm = document.getElementById('editStatusForm');
+        const statusSelect = document.getElementById('statusSelect');
+        const modalOrderId = document.getElementById('modalOrderId');
 
-            function getStatusBadge(status) {
-                const badges = {
-                    completed: '<span class="badge bg-success">Completed</span>',
-                    pending: '<span class="badge bg-warning text-dark">Pending</span>',
-                    failed: '<span class="badge bg-danger">Failed</span>'
-                };
-                return badges[status];
-            }
+        editStatusModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const orderId = button.getAttribute('data-order-id');
+            const currentStatus = button.getAttribute('data-current-status');
 
-            function renderTable() {
-                const tableBody = document.getElementById('tableBody');
-                const start = (currentPage - 1) * perPage;
-                const end = start + perPage;
-                const paginatedData = filteredData.slice(start, end);
+            modalOrderId.value = orderId;
+            statusSelect.value = currentStatus;
 
-                tableBody.innerHTML = paginatedData.map(item => `
-                    <tr>
-                        <td>${item.id}</td>
-                        <td>${item.date}</td>
-                        <td>${item.customer}</td>
-                        <td>$${item.amount.toFixed(2)}</td>
-                        <td>${getStatusBadge(item.status)}</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-outline-primary">View</a>
-                        </td>
-                    </tr>
-                `).join('');
-
-                updatePagination();
-            }
-
-            function updatePagination() {
-                const totalPages = Math.ceil(filteredData.length / perPage);
-                const start = (currentPage - 1) * perPage + 1;
-                const end = Math.min(currentPage * perPage, filteredData.length);
-                
-                document.getElementById('paginationInfo').textContent = 
-                    `Menampilkan ${start} sampai ${end} dari ${filteredData.length} entri`;
-
-                const pageNumbers = document.getElementById('pageNumbers');
-                pageNumbers.innerHTML = '';
-                
-                for (let i = 1; i <= totalPages; i++) {
-                    const pageButton = document.createElement('li');
-                    pageButton.className = `page-item ${i === currentPage ? 'active' : ''}`;
-                    pageButton.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-                    pageButton.onclick = (e) => {
-                        e.preventDefault();
-                        goToPage(i);
-                    };
-                    pageNumbers.appendChild(pageButton);
-                }
-
-                document.getElementById('prevBtn').parentNode.classList.toggle('disabled', currentPage === 1);
-                document.getElementById('nextBtn').parentNode.classList.toggle('disabled', currentPage === totalPages);
-            }
-
-            function goToPage(page) {
-                currentPage = page;
-                renderTable();
-            }
-
-            function sortTable(column) {
-                if (sortColumn === column) {
-                    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-                } else {
-                    sortColumn = column;
-                    sortDirection = 'asc';
-                }
-
-                const columns = ['id', 'date', 'customer', 'amount', 'status'];
-                const key = columns[column];
-
-                filteredData.sort((a, b) => {
-                    let aVal = a[key];
-                    let bVal = b[key];
-
-                    if (key === 'amount') {
-                        aVal = parseFloat(aVal);
-                        bVal = parseFloat(bVal);
-                    }
-
-                    if (sortDirection === 'asc') {
-                        return aVal > bVal ? 1 : -1;
-                    } else {
-                        return aVal < bVal ? 1 : -1;
-                    }
-                });
-
-                document.querySelectorAll('[id^="sort-"]').forEach(el => el.textContent = '↕️');
-                document.getElementById(`sort-${column}`).textContent = sortDirection === 'asc' ? '↑' : '↓';
-
-                currentPage = 1;
-                renderTable();
-            }
-
-            function filterTable() {
-                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-                const statusFilter = document.getElementById('statusFilter').value;
-
-                filteredData = transactionsData.filter(item => {
-                    const matchesSearch = Object.values(item).some(val => 
-                        val.toString().toLowerCase().includes(searchTerm)
-                    );
-                    const matchesStatus = !statusFilter || item.status === statusFilter;
-                    return matchesSearch && matchesStatus;
-                });
-
-                currentPage = 1;
-                renderTable();
-            }
-
-            document.getElementById('searchInput').addEventListener('input', filterTable);
-            document.getElementById('statusFilter').addEventListener('change', filterTable);
-            document.getElementById('perPageSelect').addEventListener('change', function() {
-                perPage = parseInt(this.value);
-                currentPage = 1;
-                renderTable();
-            });
-
-            document.getElementById('prevBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                if (currentPage > 1) goToPage(currentPage - 1);
-            });
-
-            document.getElementById('nextBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                const totalPages = Math.ceil(filteredData.length / perPage);
-                if (currentPage < totalPages) goToPage(currentPage + 1);
-            });
-            
-            // Initial render
-            renderTable();
+            // Atur action form menggunakan helper route()
+            editStatusForm.action = "{{ route('admin.orders.updateStatus', ['order' => 'TEMP_ID']) }}".replace('TEMP_ID', orderId);
         });
-    </script>
+
+        editStatusForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: 'POST', // Gunakan POST
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(response => {
+                // Tangani jika respons tidak berhasil
+                if (!response.ok) {
+                    // Jika ada error validasi atau server, lemparkan error
+                    return response.json().then(err => { throw err; });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Logika penyimpanan data berhasil
+                console.log('Data berhasil disimpan:', data.message);
+                
+                // Tutup modal setelah berhasil
+                const modal = bootstrap.Modal.getInstance(editStatusModal);
+                modal.hide();
+
+                // Lakukan reload halaman agar data di tabel terupdate
+                window.location.reload();
+            })
+            .catch(error => {
+                // Tampilkan pesan error jika ada masalah
+                console.error('Error:', error);
+                alert('Gagal memperbarui status. Silakan coba lagi.');
+            });
+        });
+    });
+</script>
 </x-mainlayout>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const orderDetailModal = new bootstrap.Modal(document.getElementById('orderDetailModal'));
+        const modalContent = document.getElementById('modal-content-container');
+        const loadingSpinner = document.getElementById('loading-spinner');
+
+        // Delegasi event untuk tombol View
+        document.querySelector('table tbody').addEventListener('click', function(event) {
+            if (event.target.tagName === 'A' && event.target.textContent.trim() === 'View') {
+                event.preventDefault();
+                const orderId = event.target.closest('tr').querySelector('td:first-child').textContent.replace('#', '').trim();
+
+                // Tampilkan spinner dan sembunyikan konten
+                loadingSpinner.style.display = 'block';
+                modalContent.style.display = 'none';
+
+                // Tampilkan modal
+                orderDetailModal.show();
+
+                fetch(`/dashboard/order-details?order_id=${orderId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                            orderDetailModal.hide();
+                            return;
+                        }
+
+                        // Sembunyikan spinner dan tampilkan konten
+                        loadingSpinner.style.display = 'none';
+                        modalContent.style.display = 'block';
+
+                        // Isi data ke dalam modal
+                        document.getElementById('modal-order-id').textContent = `#${data.id}`;
+                        document.getElementById('modal-order-status').textContent = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+                        document.getElementById('modal-order-date').textContent = new Date(data.created_at).toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric'
+                        });
+                        document.getElementById('modal-customer-name').textContent = data.user.name;
+                        document.getElementById('modal-customer-email').textContent = data.user.email;
+                        document.getElementById('modal-customer-phone').textContent = data.user.phone || '-';
+
+                        document.getElementById('modal-subtotal').textContent = `Rp ${new Intl.NumberFormat('id-ID').format(data.subtotal_amount)}`;
+                        document.getElementById('modal-shipping').textContent = `Rp ${new Intl.NumberFormat('id-ID').format(data.shipping_fee)}`;
+                        document.getElementById('modal-total').textContent = `Rp ${new Intl.NumberFormat('id-ID').format(data.total_payment)}`;
+
+                        // Isi tabel item pesanan
+                        const itemsTableBody = document.getElementById('modal-order-items');
+                        itemsTableBody.innerHTML = '';
+                        data.order_items.forEach(item => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${item.product.name}</td>
+                                <td>${item.quantity}</td>
+                                <td>Rp ${new Intl.NumberFormat('id-ID').format(item.price)}</td>
+                                <td class="text-end">Rp ${new Intl.NumberFormat('id-ID').format(item.quantity * item.price)}</td>
+                            `;
+                            itemsTableBody.appendChild(row);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching order details:', error);
+                        loadingSpinner.style.display = 'none';
+                        alert('Gagal mengambil detail pesanan. Silakan coba lagi.');
+                    });
+            }
+        });
+    });
+</script>
