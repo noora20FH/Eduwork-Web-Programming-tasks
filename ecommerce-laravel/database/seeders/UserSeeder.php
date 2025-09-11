@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'email' => 'customer1@example.com',
             'password' => Hash::make('password'),
             'photo_profile' => null,
-            'status' => 'customer',
+            'role' => 'customer',
         ]);
 
         User::create([
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'email' => 'customer2@example.com',
             'password' => Hash::make('password'),
             'photo_profile' => null,
-            'status' => 'customer',
+            'role' => 'customer',
         ]);
 
         // Membuat 1 pengguna dengan status 'admin'
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             'email' => 'admin1@example.com',
             'password' => Hash::make('password'),
             'photo_profile' => null,
-            'status' => 'admin',
+            'role' => 'admin',
         ]);
     }
 }

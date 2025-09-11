@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Order;
-use App\Models\OrderItem;   
+use App\Models\OrderItem;
 
 class CheckoutController extends Controller
 {
@@ -33,31 +33,47 @@ class CheckoutController extends Controller
             ->get();
 
         // 3. Hitung ringkasan total pembayaran dari checkout_items.
-        $subtotal = $checkoutItems->sum(function ($item) {
-            return $item->price * $item->quantity;
-        });
+        // $subtotal = $checkoutItems->sum(function ($item) {
+        //     return $item->price * $item->quantity;
+        // });
 
         // Biaya statis
-        $shipping_cost = 10000;
-        $tax_rate = 0.1;
+        // $shipping_cost = 10000;
+        // $tax_rate = 0.1;
 
         // Perhitungan ulang total
-        $total_amount = $subtotal + $shipping_cost + ($subtotal * $tax_rate);
+        // $total_amount = $subtotal + $shipping_cost + ($subtotal * $tax_rate);
 
         // Buat objek dummy untuk diteruskan ke view
         // Perhatikan bahwa `checkout` di sini adalah ringkasan,
         // bukan objek dari tabel `checkouts`.
-        $checkoutSummary = (object)[
+        $checkoutListProduct = (object)[
             'user' => $user,
             'checkoutItems' => $checkoutItems, // Menggunakan item checkout
+            // 'subtotal' => $subtotal,
+            // 'shipping_cost' => $shipping_cost,
+            // 'tax_amount' => $subtotal * $tax_rate,
+            // 'total_amount' => $total_amount,
+        ];
+        $tax_rate = 0.1; // 10%
+        // Mengambil data dari tabel `checkouts` untuk user yang sedang login
+        $userCheckouts = Checkout::where('user_id', $user->id)->get();
+        // Melakukan perhitungan total kumulatif
+        $subtotal = $userCheckouts->sum('subtotal');
+        $shipping_cost = $userCheckouts->sum('shipping_cost');
+        $tax_amount = $subtotal * $tax_rate;
+        $total_amount = $userCheckouts->sum('total_amount');
+
+        // Membuat objek ringkasan
+        $checkoutSummary = (object)[
             'subtotal' => $subtotal,
             'shipping_cost' => $shipping_cost,
-            'tax_amount' => $subtotal * $tax_rate,
+            'tax_amount' => $tax_amount,
             'total_amount' => $total_amount,
         ];
-
         return view('checkout.index', [
-            'checkout' => $checkoutSummary,
+            'checkout' => $checkoutListProduct,
+            'summary' => $checkoutSummary,
         ]);
     }
 
@@ -67,47 +83,7 @@ class CheckoutController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'selected_items' => 'required|array|min:1',
-            'selected_items.*' => 'exists:cart_items,id',
-        ]);
 
-        $selectedItemIds = $request->input('selected_items');
-
-        // Ambil item keranjang yang dipilih
-        $cartItems = CartItem::with('product')
-            ->whereIn('id', $selectedItemIds)
-            ->get();
-
-        if ($cartItems->isEmpty()) {
-            return redirect()->route('cart.index')->with('error', 'Item yang dipilih tidak valid.');
-        }
-
-        // Hitung total harga
-        $subtotal = $cartItems->sum(function ($item) {
-            return $item->product->price * $item->quantity;
-        });
-
-        // Contoh biaya pengiriman dan pajak
-        $shipping = 10000;
-        $taxRate = 0.1;
-        $tax = $subtotal * $taxRate;
-        $total = $subtotal + $shipping + $tax;
-
-        // Simpan data ke session untuk digunakan di halaman checkout
-        session(['checkout_data' => [
-            'items' => $cartItems,
-            'subtotal' => $subtotal,
-            'shipping' => $shipping,
-            'tax' => $tax,
-            'total' => $total,
-        ]]);
-
-        return redirect()->route('checkout.index');
-    }
 
     /**
      * Tangani proses checkout untuk satu item dari keranjang,
@@ -184,8 +160,11 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Tidak ada item untuk diproses checkout.');
         }
 
-        // Hitung total dan buat pesan WhatsApp dari semua item di semua checkout.
-        $subtotal = 0;
+        $userCheckouts = Checkout::where('user_id', $user->id)->get();
+
+        // Melakukan perhitungan total kumulatif
+
+
         $orderMessage = "Halo, saya ingin memesan produk dari K-Pop Mart.\n\n"
             . "Rincian Pesanan:\n";
 
@@ -193,17 +172,16 @@ class CheckoutController extends Controller
             $checkoutItems = $checkout->checkoutItems()->with('product')->get();
             foreach ($checkoutItems as $item) {
                 $itemTotal = $item->price * $item->quantity;
-                $subtotal += $itemTotal;
+
                 $orderMessage .= "• " . $item->product->name . " x " . $item->quantity . " = Rp " . number_format($itemTotal, 0, ',', '.') . "\n";
             }
         }
-
+        $taxRate = 0.1; // 10%
         // Tambahkan biaya pengiriman, pajak, dan total akhir.
-        $shippingCost = 10000;
-        $taxRate = 0.1;
+        $subtotal = $userCheckouts->sum('subtotal');
+        $shippingCost = $userCheckouts->sum('shipping_cost');
         $taxAmount = $subtotal * $taxRate;
-        $finalTotal = $subtotal + $shippingCost + $taxAmount;
-
+        $finalTotal = $userCheckouts->sum('total_amount');
 
 
         // 3. Simpan info pesanan ke database (Order & OrderItem).
@@ -231,10 +209,11 @@ class CheckoutController extends Controller
             ]);
         }
 
+
         $orderMessage .= "\n----------------------------------\n"
             . "Subtotal: Rp " . number_format($subtotal, 0, ',', '.') . "\n"
             . "Biaya Pengiriman: Rp " . number_format($shippingCost, 0, ',', '.') . "\n"
-            . "Pajak (" . ($taxRate * 100) . "%): Rp " . number_format($taxAmount, 0, ',', '.') . "\n"
+            . "Pajak (" . ($taxRate * 100) . "% /): Rp " . number_format($taxAmount, 0, ',', '.') . "\n"
             . "Total Pembayaran: Rp " . number_format($finalTotal, 0, ',', '.') . "\n\n"
             . "Mohon info ketersediaan stok dan detail pembayaran. Terima kasih.";
 

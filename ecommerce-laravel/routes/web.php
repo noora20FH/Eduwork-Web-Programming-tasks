@@ -53,8 +53,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware('customer')->group(function () {
 
-        // Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
-        // Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+        Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
 
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
         Route::post('/checkout/single-item/{id}', [CheckoutController::class, 'singleItemCheckout'])->name('checkout.singleItem');
         Route::get('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+        
     });
     Route::resource('profile', ProfileController::class)->only([
         'edit',

@@ -95,19 +95,19 @@
                     <ul class="list-group list-group-flush card-order-summary">
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Subtotal Pesanan</strong>
-                            <span>Rp {{ number_format($checkout->subtotal ?? 0, 0, ',', '.') }}</span>
+                            <span>Rp {{ number_format($summary->subtotal ?? 0, 0, ',', '.') }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <strong>Subtotal Pengiriman</strong>
-                            <span>Rp {{ number_format($checkout->shipping_cost ?? 0, 0, ',', '.') }}</span>
+                            <strong>Total Pengiriman</strong>
+                            <span>Rp {{ number_format($summary->shipping_cost ?? 0, 0, ',', '.') }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Pajak (10%)</strong>
-                            <span>Rp {{ number_format($checkout->tax_amount ?? 0, 0, ',', '.') }}</span>
+                            <span>Rp {{ number_format($summary->tax_amount ?? 0, 0, ',', '.') }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between fw-bold fs-5">
                             <strong>Total Pembayaran</strong>
-                            <span class="text-kpop-accent">Rp {{ number_format($checkout->total_amount ?? 0, 0, ',', '.') }}</span>
+                            <span class="text-kpop-accent">Rp {{ number_format($summary->total_amount ?? 0, 0, ',', '.') }}</span>
                         </li>
                     </ul>
                     <hr class="my-4">

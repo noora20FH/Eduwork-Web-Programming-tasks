@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -11,9 +12,20 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // Ambil semua pesanan dari database
-        $orders = Order::all();
-        // Tampilkan view 'orders.index' dan kirim data pesanan
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Silakan login untuk melihat riwayat pesanan.');
+        }
+
+        $userId = Auth::id();
+
+        // Ambil semua pesanan untuk pengguna saat ini
+        // Eager load orderItems dan product untuk setiap item
+        $orders = Order::where('user_id', $userId)
+                        ->with('orderItems.product')
+                        ->latest()
+                        ->get();
+
+        // Mengirimkan data orders ke view
         return view('orders.index', compact('orders'));
     }
 
