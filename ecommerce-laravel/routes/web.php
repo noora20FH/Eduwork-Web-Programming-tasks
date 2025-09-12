@@ -66,7 +66,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
         Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
         Route::post('/checkout/single-item/{id}', [CheckoutController::class, 'singleItemCheckout'])->name('checkout.singleItem');
-        Route::get('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+        Route::post('/checkout/process', [CheckoutController::class, 'processAllItems'])->name('checkout.process');
+        Route::post('/checkout/orderMessage', [CheckoutController::class, 'orderMessage'])->name('checkout.message');
         
     });
     Route::resource('profile', ProfileController::class)->only([

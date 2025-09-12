@@ -64,11 +64,7 @@
                                     </td>
                                     <td class="text-end fw-bold item-total">Rp {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}</td>
                                     <td class="text-end d-flex gap-2 justify-content-end">
-                                        <!-- Tombol Checkout Per Item -->
-                                        <form action="{{ route('checkout.singleItem', $item->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-success btn-sm">Checkout</button>
-                                        </form>
+
                                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editQuantityModal-{{ $item->id }}">Edit</button>
 
                                         <!-- Modal Edit Quantity -->
@@ -104,8 +100,13 @@
                                     <td colspan="5" class="text-center">Keranjang Anda kosong.</td>
                                 </tr>
                                 @endforelse
+
                             </tbody>
                         </table>
+                        <form action="{{ route('checkout.process') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success btn-lg">Checkout</button>
+                        </form>
                     </div>
                 </div>
             </div>

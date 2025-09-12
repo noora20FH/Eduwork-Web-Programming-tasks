@@ -43,7 +43,7 @@
                         </div>
                         <div class="d-grid mt-3 gap-2">
                             
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal-{{ $order->id }}">
+                                <a href="{{ route('checkout.message')}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal-{{ $order->id }}">
                                     Lakukan Pembayaran
                                 </a>
                             
