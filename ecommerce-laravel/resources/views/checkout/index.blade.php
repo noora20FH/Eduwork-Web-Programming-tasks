@@ -94,7 +94,7 @@
                     <h5 class="mb-3">Ringkasan Pesanan</h5>
                     <ul class="list-group list-group-flush card-order-summary">
                         <li class="list-group-item d-flex justify-content-between">
-                            <strong>Subtotal Pesanan</strong>
+                            <strong>Subtotal Produk</strong>
                             <span>Rp {{ number_format($summary->subtotal ?? 0, 0, ',', '.') }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
@@ -106,7 +106,7 @@
                             <span>Rp {{ number_format($summary->tax_amount ?? 0, 0, ',', '.') }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between fw-bold fs-5">
-                            <strong>Total Pembayaran</strong>
+                            <strong>Total Pesanan</strong>
                             <span class="text-kpop-accent">Rp {{ number_format($summary->total_amount ?? 0, 0, ',', '.') }}</span>
                         </li>
                     </ul>

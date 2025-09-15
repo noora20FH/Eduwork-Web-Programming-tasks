@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class CheckoutItem extends Model
 {
     protected $fillable = [
-        'checkout_id',
+        'user_id',
         'product_id',
         'quantity',
         'price',
+        'subtotal',
     ];
 
     public function checkout()
