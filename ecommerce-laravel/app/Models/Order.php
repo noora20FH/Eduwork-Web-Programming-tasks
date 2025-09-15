@@ -16,6 +16,7 @@ class Order extends Model
         'customer_address',
         'subtotal_amount',
         'shipping_fee',
+        'tax_amount',
         'payment_method',
         'total_payment',
         'status',
@@ -24,10 +25,7 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function product()
-    {
-        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id');
-    }
+
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);

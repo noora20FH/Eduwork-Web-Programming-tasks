@@ -44,12 +44,12 @@
                     </div>
                 </form>
 
-                {{-- Tautan "Beli Sekarang" tetap menggunakan <a> jika diarahkan ke halaman checkout --}}
+                <!-- {{-- Tautan "Beli Sekarang" tetap menggunakan <a> jika diarahkan ke halaman checkout --}}
                 <div class="d-grid gap-2 mt-2">
-                     <a href="#" class="btn btn-outline-dark btn-lg">
+                     <a href="{{route('cart.store')}}" class="btn btn-outline-dark btn-lg">
                         Beli Sekarang
                     </a>
-                </div>
+                </div> -->
 
                 <hr class="my-4">
 

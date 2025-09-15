@@ -70,7 +70,7 @@ class CheckoutController extends Controller
      * @param int $id ID dari CartItem.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function singleItemCheckout($id)
+    public function singleItemCheckout(Request $request , $id)
     {
         // Cari item di keranjang hanya berdasarkan ID-nya
         $cartItem = CartItem::where('id', $id)->with('product')->first();

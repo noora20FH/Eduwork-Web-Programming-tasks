@@ -63,7 +63,7 @@
                 </div>
 
                 <!-- Metode Pembayaran -->
-                <div class="card shadow-sm p-4">
+                <!-- <div class="card shadow-sm p-4">
                     <h5 class="mb-4">Pilih Metode Pembayaran</h5>
                     <div class="my-3">
                         <div class="form-check mb-2">
@@ -85,7 +85,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Ringkasan Pesanan -->
