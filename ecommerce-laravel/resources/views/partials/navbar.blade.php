@@ -41,6 +41,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('product-category.index') ? 'active' : '' }}" href="{{ route('product-category.index') }}">Product Category</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.orders.index') ? 'active' : '' }}" href="{{ route('admin.orders.index') }}">Status Order</a>
+                </li>
                 @endif
             </ul>
             @auth

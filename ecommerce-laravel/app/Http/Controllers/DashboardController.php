@@ -68,32 +68,32 @@ class DashboardController extends Controller
         return response()->json($order);
     }
     
-    public function updateStatus(Request $request, Order $order)
-    {
-        try {
-            // Validasi input status
-            $validatedData = $request->validate([
-                'status' => 'required|in:pending,completed,failed',
-            ]);
+    // public function updateStatus(Request $request, Order $order)
+    // {
+    //     try {
+    //         // Validasi input status
+    //         $validatedData = $request->validate([
+    //             'status' => 'required|in:pending,completed,failed',
+    //         ]);
 
-            // Perbarui properti status dari objek Order
-            $order->status = $validatedData['status'];
+    //         // Perbarui properti status dari objek Order
+    //         $order->status = $validatedData['status'];
             
-            // Simpan perubahan ke database
-            $order->save();
+    //         // Simpan perubahan ke database
+    //         $order->save();
 
-            // Berikan respons JSON sukses
-            return response()->json([
-                'message' => 'Status pesanan berhasil diperbarui.',
-                'new_status' => $order->status
-            ], 200);
+    //         // Berikan respons JSON sukses
+    //         return response()->json([
+    //             'message' => 'Status pesanan berhasil diperbarui.',
+    //             'new_status' => $order->status
+    //         ], 200);
 
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Tangani error validasi
-            return response()->json(['error' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            // Tangani error umum lainnya
-            return response()->json(['error' => 'Gagal memperbarui status. ' . $e->getMessage()], 500);
-        }
-    }
+    //     } catch (\Illuminate\Validation\ValidationException $e) {
+    //         // Tangani error validasi
+    //         return response()->json(['error' => $e->errors()], 422);
+    //     } catch (\Exception $e) {
+    //         // Tangani error umum lainnya
+    //         return response()->json(['error' => 'Gagal memperbarui status. ' . $e->getMessage()], 500);
+    //     }
+    // }
 }

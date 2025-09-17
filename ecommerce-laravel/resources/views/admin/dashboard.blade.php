@@ -104,30 +104,11 @@
                             </table>
                         </div>
 
-                        <div class="d-flex justify-content-center">
-                            {{ $transactions->links() }}
+                        <div class="justify-content-between align-items-center mt-4">
+                            {{ $transactions->links('pagination::bootstrap-5') }}
                         </div>
 
-                        <nav class="d-flex justify-content-between align-items-center mt-3" aria-label="Tabel navigasi">
-                            <div class="d-none d-sm-block">
-                                <p id="paginationInfo" class="text-sm text-muted mb-0"></p>
-                            </div>
-                            <ul class="pagination mb-0 ms-auto">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" id="prevBtn" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item d-none d-md-flex" id="pageNumbers">
-                                    <!-- Angka halaman akan dirender di sini -->
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" id="nextBtn" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+
                     </div>
                 </div>
             </div>

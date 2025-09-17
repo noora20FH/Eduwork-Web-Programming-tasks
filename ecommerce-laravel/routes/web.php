@@ -13,7 +13,7 @@ use App\Models\Product;
 use App\Models\Authentication;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\CheckoutController;
-
+use App\Http\Controllers\OrderAdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/dashboard/order-details', [DashboardController::class, 'getOrderDetails'])->name('admin.orders.details');
-        Route::patch('/dashboard/orders/{order}/update-status', [DashboardController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+        Route::patch('/admin/orders/{order}/update-status', [OrderAdminController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+        Route::get('/admin-orders', [OrderAdminController::class, 'index'])->name('admin.orders.index');
         Route::resource('admin-products', ProductAdminController::class)->parameters([
             'admin-products' => 'product'
         ]);
